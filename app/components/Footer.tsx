@@ -8,9 +8,9 @@ const footerLinks = [
 
 export default function Footer() {
   return (
-    <footer className="bg-black text-gray-400 pt-16 pb-8 px-5">
-      <div className="max-w-6xl mx-auto">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+    <footer className="bg-black text-gray-400 pt-16 pb-8 px-4 w-full overflow-hidden">
+      <div className="max-w-6xl mx-auto w-full">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-10 w-full">
 
           {/* Brand */}
           <div className="sm:col-span-2 lg:col-span-1">
@@ -27,7 +27,7 @@ export default function Footer() {
                 </span>
               </div>
             </div>
-            <p className="text-sm leading-relaxed max-w-xs">
+            <p className="text-sm leading-relaxed">
               Premium family salon in JP Nagar, Bangalore.
               Expert grooming in a clean, modern environment.
             </p>
@@ -101,7 +101,7 @@ export default function Footer() {
         </div>
 
         {/* Divider + Copyright */}
-        <div className="mt-12 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs">
+        <div className="mt-12 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs w-full">
           <p>&copy; 2026 Perfect Care Family Salon. All rights reserved.</p>
           <p className="text-gray-600">
             Crafted with care in Bangalore
