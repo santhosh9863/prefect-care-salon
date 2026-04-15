@@ -174,13 +174,13 @@ export default function Reviews() {
     <section
       ref={sectionRef}
       id="reviews"
-      className="relative py-28 px-4 sm:px-6 bg-white overflow-hidden"
+      className="relative py-20 sm:py-24 md:py-28 px-4 sm:px-6 bg-white overflow-hidden"
     >
       <div className="absolute inset-0 warm-lighting pointer-events-none" />
 
       <div className="max-w-7xl mx-auto relative">
         <div
-          className={`text-center mb-20 transition-all duration-1000 ease-out ${
+          className={`text-center mb-12 sm:mb-16 md:mb-20 transition-all duration-1000 ease-out ${
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
           }`}
         >
@@ -188,41 +188,41 @@ export default function Reviews() {
             <span className="w-1.5 h-1.5 bg-[#B91C1C] rounded-full" />
             Testimonials
           </div>
-          <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold text-gray-900 tracking-wide font-[var(--font-playfair)] mb-6">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 tracking-wide font-[var(--font-playfair)] mb-4 sm:mb-6">
             What Our Clients Say
           </h2>
-          <p className="text-gray-500 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
+          <p className="text-gray-500 text-sm sm:text-base md:text-lg max-w-2xl mx-auto leading-relaxed px-4">
             Join thousands of satisfied customers who trust us with their
             grooming needs. Your satisfaction is our greatest achievement.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
           {reviews.map((review, i) => (
             <ReviewCard key={i} review={review} index={i} />
           ))}
         </div>
 
         <div
-          className={`mt-16 text-center transition-all duration-1000 delay-500 ease-out ${
+          className={`mt-12 sm:mt-16 text-center transition-all duration-1000 delay-500 ease-out ${
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
           }`}
         >
-          <div className="inline-flex items-center gap-4 px-6 py-4 rounded-full glass-card">
-            <div className="flex -space-x-3">
+          <div className="inline-flex items-center gap-3 sm:gap-4 px-4 sm:px-6 py-3 sm:py-4 rounded-full glass-card">
+            <div className="flex -space-x-2 sm:-space-x-3">
               {["RS", "PM", "AK", "SR"].map((initials, i) => (
                 <div
                   key={i}
-                  className="w-10 h-10 rounded-full bg-gradient-to-br from-[#B91C1C] to-[#991B1B] border-2 border-white flex items-center justify-center text-white text-xs font-bold shadow-lg"
+                  className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-gradient-to-br from-[#B91C1C] to-[#991B1B] border-2 border-white flex items-center justify-center text-white text-[10px] sm:text-xs font-bold shadow-lg"
                 >
                   {initials}
                 </div>
               ))}
-              <div className="w-10 h-10 rounded-full bg-gray-200 border-2 border-white flex items-center justify-center text-gray-600 text-xs font-bold">
+              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-gray-200 border-2 border-white flex items-center justify-center text-gray-600 text-[10px] sm:text-xs font-bold">
                 +2K
               </div>
             </div>
-            <span className="text-sm font-medium text-gray-700">
+            <span className="text-xs sm:text-sm font-medium text-gray-700">
               Join <span className="text-[#B91C1C] font-semibold">2,500+</span> happy
               customers
             </span>

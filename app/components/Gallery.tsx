@@ -107,33 +107,33 @@ export default function Gallery() {
       <section
         ref={sectionRef}
         id="gallery"
-        className="relative py-28 px-4 sm:px-6 bg-white overflow-hidden"
+        className="relative py-20 sm:py-24 md:py-28 px-4 sm:px-6 bg-white overflow-hidden"
       >
         <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent" />
         <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent" />
 
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-20">
+          <div className="text-center mb-12 sm:mb-16 md:mb-20">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#B91C1C]/8 text-[#B91C1C] text-xs font-semibold tracking-[0.2em] uppercase mb-6">
               <span className="w-1.5 h-1.5 bg-[#B91C1C] rounded-full" />
               Our Work
             </div>
-            <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold text-gray-900 tracking-wide font-[var(--font-playfair)] mb-6">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 tracking-wide font-[var(--font-playfair)] mb-4 sm:mb-6">
               Gallery
             </h2>
-            <p className="text-gray-500 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
+            <p className="text-gray-500 text-sm sm:text-base md:text-lg max-w-2xl mx-auto leading-relaxed px-4">
               A glimpse into our world of beauty and precision. Every detail,
               every transformation, captured for you.
             </p>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 auto-rows-[200px] md:auto-rows-[280px] lg:auto-rows-[300px]">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4 md:gap-6 auto-rows-[160px] sm:auto-rows-[200px] md:auto-rows-[280px] lg:auto-rows-[300px]">
             {galleryImages.map((img, i) => (
               <div
                 key={i}
                 data-index={i}
                 onClick={() => openLightbox(img.src)}
-                className={`relative overflow-hidden rounded-2xl cursor-pointer group ${
+                className={`relative overflow-hidden rounded-xl sm:rounded-2xl cursor-pointer group touch-feedback ${
                   img.span || ""
                 } transition-all duration-700 ${
                   isVisible[i] ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
@@ -150,12 +150,12 @@ export default function Gallery() {
                   />
                 </div>
 
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-all duration-500" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/0 opacity-0 group-hover:opacity-100 transition-all duration-500" />
 
                 <div className="absolute inset-0 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500">
-                  <div className="w-14 h-14 rounded-full glass-card-dark flex items-center justify-center mb-3 transform scale-50 group-hover:scale-100 transition-transform duration-500">
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full glass-card-dark flex items-center justify-center mb-2 sm:mb-3 transform scale-50 group-hover:scale-100 transition-transform duration-500">
                     <svg
-                      className="w-6 h-6 text-white"
+                      className="w-5 h-5 sm:w-6 sm:h-6 text-white"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -170,13 +170,13 @@ export default function Gallery() {
                   </div>
                 </div>
 
-                <div className="absolute inset-x-0 bottom-0 p-4 md:p-6 translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-500">
-                  <span className="text-white text-sm font-medium px-4 py-2 bg-white/10 backdrop-blur-md rounded-full border border-white/20 inline-block">
+                <div className="absolute inset-x-0 bottom-0 p-3 sm:p-4 md:p-6 translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-500">
+                  <span className="text-white text-xs sm:text-sm font-medium px-3 sm:px-4 py-1.5 sm:py-2 bg-white/10 backdrop-blur-md rounded-full border border-white/20 inline-block">
                     {img.label}
                   </span>
                 </div>
 
-                <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-white/10 group-hover:ring-white/20 transition-all duration-500" />
+                <div className="absolute inset-0 rounded-xl sm:rounded-2xl ring-1 ring-inset ring-white/10 group-hover:ring-white/30 transition-all duration-500" />
               </div>
             ))}
           </div>

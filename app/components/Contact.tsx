@@ -27,37 +27,37 @@ export default function Contact() {
     <section
       ref={sectionRef}
       id="contact"
-      className="relative py-28 px-4 sm:px-6 salon-ambient overflow-hidden"
+      className="relative py-20 sm:py-24 md:py-28 px-4 sm:px-6 salon-ambient overflow-hidden"
     >
       <div className="absolute inset-0 warm-lighting pointer-events-none" />
 
       <div className="max-w-5xl mx-auto relative">
         <div
-          className={`text-center mb-16 transition-all duration-1000 ease-out ${
+          className={`text-center mb-10 sm:mb-14 md:mb-16 transition-all duration-1000 ease-out ${
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
           }`}
         >
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#B91C1C]/8 text-[#B91C1C] text-xs font-semibold tracking-[0.2em] uppercase mb-6">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#B91C1C]/8 text-[#B91C1C] text-xs font-semibold tracking-[0.2em] uppercase mb-4 sm:mb-6">
             <span className="w-1.5 h-1.5 bg-[#B91C1C] rounded-full" />
             Contact Us
           </div>
-          <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold text-gray-900 tracking-wide font-[var(--font-playfair)] mb-6">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 tracking-wide font-[var(--font-playfair)] mb-4 sm:mb-6">
             Visit Us Today
           </h2>
-          <p className="text-gray-500 text-base sm:text-lg max-w-xl mx-auto leading-relaxed">
+          <p className="text-gray-500 text-sm sm:text-base md:text-lg max-w-xl mx-auto leading-relaxed px-4">
             Step into our salon and experience the Perfect Care difference.
             Walk in anytime or book an appointment.
           </p>
         </div>
 
         <div
-          className={`glass-card rounded-3xl p-8 md:p-12 transition-all duration-1000 delay-200 ease-out ${
+          className={`glass-card rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-12 transition-all duration-1000 delay-200 ease-out ${
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
           }`}
         >
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 mb-10">
-            <div className="space-y-8">
-              <div className="flex items-start gap-5">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 mb-8 sm:mb-10">
+            <div className="space-y-6 sm:space-y-8">
+              <div className="flex items-start gap-4 sm:gap-5">
                 <div className="w-14 h-14 rounded-2xl bg-[#B91C1C]/10 flex items-center justify-center text-[#B91C1C] flex-shrink-0">
                   <svg
                     className="w-6 h-6"

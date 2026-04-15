@@ -109,44 +109,46 @@ function ServiceCard({
       onClick={onClick}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className={`group relative glass-card rounded-3xl p-8 cursor-pointer overflow-hidden transition-all duration-700 ease-out hover-lift ${
+      className={`group relative glass-card rounded-2xl sm:rounded-3xl p-6 sm:p-8 cursor-pointer overflow-hidden transition-all duration-500 ease-out card-depth touch-feedback ${
         isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
       }`}
     >
       <div
-        className={`absolute inset-0 bg-gradient-to-br from-[#B91C1C]/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl`}
+        className={`absolute inset-0 bg-gradient-to-br from-[#B91C1C]/8 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 rounded-2xl sm:rounded-3xl`}
       />
 
-      <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-br from-[#B91C1C]/10 to-transparent rounded-bl-[100px] opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+      <div className="absolute top-0 right-0 w-32 sm:w-40 h-32 sm:h-40 bg-gradient-to-br from-[#B91C1C]/12 to-transparent rounded-bl-[80px] sm:rounded-bl-[100px] opacity-0 group-hover:opacity-100 transition-all duration-700" />
+
+      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-[#B91C1C]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
       <div className="relative z-10">
-        <div className="flex items-start justify-between mb-8">
+        <div className="flex items-start justify-between mb-5 sm:mb-8">
           <div
-            className={`w-16 h-16 rounded-2xl bg-gradient-to-br from-[#B91C1C]/10 to-[#B91C1C]/5 flex items-center justify-center text-[#B91C1C] transition-all duration-500 ${
-              isHovered ? "scale-110 bg-[#B91C1C] text-white" : ""
+            className={`w-14 h-14 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl bg-gradient-to-br from-[#B91C1C]/10 to-[#B91C1C]/5 flex items-center justify-center text-[#B91C1C] transition-all duration-500 ${
+              isHovered ? "scale-110 bg-[#B91C1C] text-white shadow-lg shadow-[#B91C1C]/30" : ""
             }`}
           >
             {service.icon}
           </div>
           <div className="text-right">
-            <span className="text-[#B91C1C] font-bold text-2xl">
+            <span className="text-[#B91C1C] font-bold text-xl sm:text-2xl">
               {service.price}
             </span>
-            <span className="block text-gray-400 text-xs mt-0.5">Starting</span>
+            <span className="block text-gray-400 text-[10px] sm:text-xs mt-0.5">Starting</span>
           </div>
         </div>
 
-        <h3 className="text-xl font-bold text-gray-900 mb-4 font-[var(--font-playfair)] group-hover:text-[#B91C1C] transition-colors duration-300">
+        <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-3 sm:mb-4 font-[var(--font-playfair)] group-hover:text-[#B91C1C] transition-colors duration-300">
           {service.name}
         </h3>
-        <p className="text-gray-600 text-sm leading-relaxed mb-6">
+        <p className="text-gray-600 text-xs sm:text-sm leading-relaxed mb-5 sm:mb-6">
           {service.desc}
         </p>
 
-        <div className="flex items-center justify-between pt-5 border-t border-gray-100/50">
-          <span className="text-gray-400 text-sm flex items-center gap-2">
+        <div className="flex items-center justify-between pt-4 sm:pt-5 border-t border-gray-100/50">
+          <span className="text-gray-400 text-xs sm:text-sm flex items-center gap-1.5 sm:gap-2">
             <svg
-              className="w-4 h-4"
+              className="w-3.5 h-3.5 sm:w-4 sm:h-4"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -160,10 +162,10 @@ function ServiceCard({
             </svg>
             {service.duration}
           </span>
-          <span className="text-[#B91C1C] text-sm font-medium flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-x-2 group-hover:translate-x-0">
+          <span className="text-[#B91C1C] text-xs sm:text-sm font-medium flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-x-2 group-hover:translate-x-0">
             Learn more
             <svg
-              className="w-4 h-4 transition-transform group-hover:translate-x-1"
+              className="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform group-hover:translate-x-1"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -213,25 +215,25 @@ export default function Services() {
 
   return (
     <>
-      <section id="services" className="relative py-28 px-4 sm:px-6 salon-ambient overflow-hidden">
+      <section id="services" className="relative py-20 sm:py-24 md:py-28 px-4 sm:px-6 salon-ambient overflow-hidden">
         <div className="absolute inset-0 warm-lighting pointer-events-none" />
 
         <div className="max-w-7xl mx-auto relative">
-          <div className="text-center mb-20">
+          <div className="text-center mb-12 sm:mb-16 md:mb-20">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#B91C1C]/8 text-[#B91C1C] text-xs font-semibold tracking-[0.2em] uppercase mb-6">
               <span className="w-1.5 h-1.5 bg-[#B91C1C] rounded-full" />
               Our Services
             </div>
-            <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold text-gray-900 tracking-wide font-[var(--font-playfair)] mb-6">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 tracking-wide font-[var(--font-playfair)] mb-4 sm:mb-6">
               Premium Workstations
             </h2>
-            <p className="text-gray-500 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
+            <p className="text-gray-500 text-sm sm:text-base md:text-lg max-w-2xl mx-auto leading-relaxed px-4">
               Each service station is equipped with the finest tools and
               products, ensuring you receive nothing but the best care.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
             {services.map((service, index) => (
               <ServiceCard
                 key={service.name}
@@ -242,14 +244,14 @@ export default function Services() {
             ))}
           </div>
 
-          <div className="mt-16 text-center">
+          <div className="mt-12 sm:mt-16 text-center">
             <a
               href="/book"
-              className="inline-flex items-center gap-3 px-8 py-4 bg-[#B91C1C] text-white font-semibold rounded-full hover:bg-[#991B1B] transition-all duration-300 hover:shadow-xl hover:shadow-red-900/30 hover:scale-105 sweep-effect"
+              className="touch-feedback inline-flex items-center gap-3 px-6 sm:px-8 py-3 sm:py-4 bg-[#B91C1C] text-white font-semibold text-sm sm:text-base rounded-full hover:bg-[#991B1B] transition-all duration-300 hover:shadow-xl hover:shadow-red-900/30 hover:scale-105 active:scale-100"
             >
               Book Your Session
               <svg
-                className="w-5 h-5"
+                className="w-4 h-4 sm:w-5 sm:h-5"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"

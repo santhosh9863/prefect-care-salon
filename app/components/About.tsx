@@ -96,36 +96,36 @@ export default function About() {
     <section
       ref={sectionRef}
       id="about"
-      className="relative py-28 px-4 sm:px-6 salon-ambient overflow-hidden"
+      className="relative py-20 sm:py-24 md:py-28 px-4 sm:px-6 salon-ambient overflow-hidden"
     >
       <div className="absolute inset-0 warm-lighting pointer-events-none" />
 
       <div className="max-w-7xl mx-auto relative">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 xl:gap-20 items-center">
           <div
             className={`relative order-2 lg:order-1 transition-all duration-1000 ease-out ${
               isVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-12"
             }`}
           >
-            <div className="relative rounded-3xl overflow-hidden shadow-2xl">
+            <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl">
               <img
                 src="https://images.unsplash.com/photo-1560066984-138dadb4c035?w=800&q=80"
                 alt="Perfect Care Family Salon Interior"
-                className="w-full h-[400px] lg:h-[500px] object-cover"
+                className="w-full h-[300px] sm:h-[350px] lg:h-[450px] object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
 
-              <div className="absolute inset-0 ring-1 ring-inset ring-white/20 rounded-3xl" />
+              <div className="absolute inset-0 ring-1 ring-inset ring-white/20 rounded-2xl sm:rounded-3xl" />
             </div>
 
-            <div className="absolute -bottom-6 -right-6 w-48 h-48 bg-gradient-to-br from-[#B91C1C]/15 to-[#B91C1C]/5 rounded-3xl -z-10 blur-xl" />
-            <div className="absolute -top-6 -left-6 w-32 h-32 bg-gradient-to-br from-[#B91C1C]/10 to-transparent rounded-3xl -z-10" />
+            <div className="absolute -bottom-4 sm:-bottom-6 -right-4 sm:-right-6 w-32 sm:w-48 h-32 sm:h-48 bg-gradient-to-br from-[#B91C1C]/15 to-[#B91C1C]/5 rounded-2xl sm:rounded-3xl -z-10 blur-xl" />
+            <div className="absolute -top-4 sm:-top-6 -left-4 sm:-left-6 w-24 sm:w-32 h-24 sm:h-32 bg-gradient-to-br from-[#B91C1C]/10 to-transparent rounded-2xl sm:rounded-3xl -z-10" />
 
-            <div className="absolute -bottom-4 left-8 glass-card rounded-2xl p-5 shadow-xl">
-              <div className="flex items-center gap-4">
-                <div className="w-14 h-14 rounded-xl bg-[#B91C1C]/10 flex items-center justify-center text-[#B91C1C]">
+            <div className="absolute -bottom-3 sm:-bottom-4 left-4 sm:left-8 glass-card rounded-xl sm:rounded-2xl p-4 sm:p-5 shadow-xl">
+              <div className="flex items-center gap-3 sm:gap-4">
+                <div className="w-12 sm:w-14 h-12 sm:h-14 rounded-xl bg-[#B91C1C]/10 flex items-center justify-center text-[#B91C1C]">
                   <svg
-                    className="w-7 h-7"
+                    className="w-6 h-6 sm:w-7 sm:h-7"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -139,36 +139,36 @@ export default function About() {
                   </svg>
                 </div>
                 <div>
-                  <p className="font-bold text-gray-900 text-lg">
+                  <p className="font-bold text-gray-900 text-base sm:text-lg">
                     Premium Quality
                   </p>
-                  <p className="text-gray-500 text-sm">L&apos;Oréal Products Only</p>
+                  <p className="text-gray-500 text-xs sm:text-sm">L&apos;Oréal Products Only</p>
                 </div>
               </div>
             </div>
           </div>
 
           <div
-            className={`order-1 lg:order-2 space-y-8 transition-all duration-1000 ease-out delay-200 ${
+            className={`order-1 lg:order-2 space-y-6 sm:space-y-8 transition-all duration-1000 ease-out delay-200 ${
               isVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-12"
             }`}
           >
             <div>
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#B91C1C]/8 text-[#B91C1C] text-xs font-semibold tracking-[0.2em] uppercase mb-6">
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#B91C1C]/8 text-[#B91C1C] text-xs font-semibold tracking-[0.2em] uppercase mb-4 sm:mb-6">
                 <span className="w-1.5 h-1.5 bg-[#B91C1C] rounded-full" />
                 About Us
               </div>
-              <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold text-gray-900 tracking-wide font-[var(--font-playfair)] mb-8">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 tracking-wide font-[var(--font-playfair)] mb-4 sm:mb-6 md:mb-8">
                 Our Story
               </h2>
-              <div className="space-y-6">
-                <p className="text-gray-600 text-base sm:text-lg leading-relaxed">
+              <div className="space-y-4 sm:space-y-6">
+                <p className="text-gray-600 text-sm sm:text-base md:text-lg leading-relaxed">
                   Welcome to <span className="text-[#B91C1C] font-semibold">Perfect Care Family Salon</span>, 
                   where beauty meets hospitality in the heart of JP Nagar, Bangalore. 
                   Our salon is designed to feel like a second home — warm, welcoming, 
                   and dedicated to making you look and feel your absolute best.
                 </p>
-                <p className="text-gray-600 text-base sm:text-lg leading-relaxed">
+                <p className="text-gray-600 text-sm sm:text-base md:text-lg leading-relaxed">
                   With over 5 years of experience, our team of skilled stylists combines 
                   artistry with precision. We use only premium products like L&apos;Oréal to 
                   ensure every service leaves you transformed and confident.
@@ -176,37 +176,37 @@ export default function About() {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 sm:gap-6">
+            <div className="grid grid-cols-3 gap-3 sm:gap-4 md:gap-6">
               {stats.map((stat, i) => (
                 <div
                   key={i}
-                  className="text-center p-5 sm:p-6 rounded-2xl glass-card hover-lift"
+                  className="text-center p-3 sm:p-5 sm:p-6 rounded-xl sm:rounded-2xl glass-card card-depth"
                 >
-                  <div className="w-12 h-12 mx-auto rounded-xl bg-[#B91C1C]/10 flex items-center justify-center text-[#B91C1C] mb-4">
+                  <div className="w-10 sm:w-12 h-10 sm:h-12 mx-auto rounded-lg sm:rounded-xl bg-[#B91C1C]/10 flex items-center justify-center text-[#B91C1C] mb-2 sm:mb-4">
                     {stat.icon}
                   </div>
-                  <p className="text-2xl sm:text-3xl font-bold text-gray-900 mb-1">
+                  <p className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 mb-0.5 sm:mb-1">
                     {stat.value}
                   </p>
-                  <p className="text-gray-500 text-xs sm:text-sm">{stat.label}</p>
+                  <p className="text-gray-500 text-[10px] sm:text-xs md:text-sm">{stat.label}</p>
                 </div>
               ))}
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
               {features.map((feature, i) => (
                 <div
                   key={i}
-                  className="flex items-start gap-4 p-4 rounded-xl glass-card"
+                  className="flex items-start gap-3 sm:gap-4 p-3 sm:p-4 rounded-xl glass-card card-depth"
                 >
-                  <div className="w-10 h-10 rounded-lg bg-[#B91C1C]/10 flex items-center justify-center text-[#B91C1C] flex-shrink-0">
+                  <div className="w-9 sm:w-10 h-9 sm:h-10 rounded-lg bg-[#B91C1C]/10 flex items-center justify-center text-[#B91C1C] flex-shrink-0">
                     {feature.icon}
                   </div>
                   <div>
-                    <p className="font-semibold text-gray-900 mb-1">
+                    <p className="font-semibold text-gray-900 text-sm sm:text-base mb-0.5 sm:mb-1">
                       {feature.title}
                     </p>
-                    <p className="text-gray-500 text-sm">{feature.desc}</p>
+                    <p className="text-gray-500 text-xs sm:text-sm">{feature.desc}</p>
                   </div>
                 </div>
               ))}
@@ -214,11 +214,11 @@ export default function About() {
 
             <a
               href="#services"
-              className="inline-flex items-center gap-3 text-[#B91C1C] font-semibold hover:gap-5 transition-all duration-300 group"
+              className="inline-flex items-center gap-2 sm:gap-3 text-[#B91C1C] font-semibold hover:gap-4 sm:hover:gap-5 transition-all duration-300 group"
             >
               Explore our services
               <svg
-                className="w-5 h-5 transition-transform group-hover:translate-x-1"
+                className="w-4 h-4 sm:w-5 sm:h-5 transition-transform group-hover:translate-x-1"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
