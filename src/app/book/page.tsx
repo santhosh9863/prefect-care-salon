@@ -73,11 +73,11 @@ Time: ${formData.time}`;
   }
 
   return (
-    <div className="min-h-screen bg-[#0b0f19] text-white px-4 py-16">
-      <div className="max-w-md mx-auto">
+    <div className="min-h-screen bg-[#0b0f19] text-white overflow-x-hidden">
+      <div className="max-w-md mx-auto px-4 py-10 w-full">
         <a
           href="/"
-          className="inline-flex items-center gap-2 text-sm text-white bg-white/10 hover:bg-white/20 px-4 py-2 rounded-full backdrop-blur-md border border-white/20 mb-6"
+          className="flex items-center gap-2 text-white bg-white/10 hover:bg-white/20 px-4 py-2 rounded-full backdrop-blur-md border border-white/20 mb-6 w-fit"
         >
           ← Back to Home
         </a>

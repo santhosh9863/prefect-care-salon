@@ -50,7 +50,7 @@ const services = [
 type Service = typeof services[number];
 
 export default function Services() {
-  const [selectedService, setSelectedService] = useState<Service | null>(null);
+  const [activeService, setActiveService] = useState<Service | null>(null);
 
   return (
     <>
@@ -72,8 +72,8 @@ export default function Services() {
             {services.map((service) => (
               <div
                 key={service.name}
-                onClick={() => setSelectedService(service)}
-                className="bg-white rounded-2xl p-6 border border-gray-100 shadow-md hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 cursor-pointer"
+                onClick={() => setActiveService(service)}
+                className="bg-white rounded-2xl p-6 border border-gray-100 shadow-md hover:shadow-2xl hover:-translate-y-2 hover:scale-105 transition-all duration-300 cursor-pointer"
               >
                 <div className="flex items-start justify-between mb-4">
                   <div className="w-12 h-12 rounded-lg bg-red-50 flex items-center justify-center text-xl">
@@ -98,47 +98,47 @@ export default function Services() {
         </div>
       </section>
 
-      {selectedService && (
+      {activeService && (
         <div
-          className="fixed inset-0 bg-black/60 flex items-center justify-center p-4 z-50"
-          onClick={() => setSelectedService(null)}
+          className="fixed inset-0 bg-black/60 flex items-center justify-center z-50"
+          onClick={() => setActiveService(null)}
         >
           <div
-            className="bg-white rounded-2xl p-6 max-w-md w-full shadow-xl animate-in fade-in zoom-in-95 duration-200"
+            className="bg-white rounded-2xl p-6 max-w-md w-full transform scale-100 transition-all duration-300"
             onClick={(e) => e.stopPropagation()}
           >
-            <button
-              onClick={() => setSelectedService(null)}
-              className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center text-gray-400 hover:text-gray-600 transition-colors"
-            >
-              ✕
-            </button>
-
             <div className="text-center mb-6">
-              <span className="text-5xl mb-4 block">{selectedService.icon}</span>
-              <h3 className="text-2xl font-bold text-gray-900 font-[var(--font-playfair)]">
-                {selectedService.name}
-              </h3>
+              <span className="text-5xl mb-4 block">{activeService.icon}</span>
+              <h2 className="text-xl font-bold mb-2 text-gray-900">
+                {activeService.name}
+              </h2>
               <div className="flex items-center justify-center gap-4 mt-2">
                 <span className="text-red-600 font-semibold text-lg">
-                  {selectedService.price}
+                  {activeService.price}
                 </span>
                 <span className="text-gray-500 text-sm">
-                  {selectedService.duration}
+                  {activeService.duration}
                 </span>
               </div>
             </div>
 
             <p className="text-gray-600 text-sm leading-relaxed mb-6">
-              {selectedService.desc}
+              {activeService.desc}
             </p>
 
-            <a
-              href="/book"
-              className="block w-full bg-red-700 text-white text-center py-3 rounded-full font-semibold hover:bg-red-800 transition-colors"
+            <button
+              onClick={() => window.location.href = '/book'}
+              className="w-full bg-red-700 text-white py-3 rounded-full font-semibold hover:bg-red-800 transition-colors"
             >
               Book Appointment
-            </a>
+            </button>
+
+            <button
+              onClick={() => setActiveService(null)}
+              className="mt-3 text-sm text-gray-500 w-full text-center hover:text-gray-700 transition-colors"
+            >
+              Close
+            </button>
           </div>
         </div>
       )}
