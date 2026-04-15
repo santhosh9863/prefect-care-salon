@@ -41,8 +41,12 @@ Time: ${formData.time}`;
   };
 
   return (
-    <div className="min-h-screen px-4 py-16">
+    <div className="min-h-screen px-4 py-10">
       <div className="max-w-md mx-auto">
+        <a href="/" className="flex items-center gap-2 text-sm text-gray-600 hover:text-black mb-6">
+          ← Back to Home
+        </a>
+
         <h1 className="text-3xl font-bold text-center mb-8">Book Appointment</h1>
 
         <form onSubmit={handleSubmit} className="space-y-4">
