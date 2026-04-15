@@ -30,7 +30,7 @@ export default function Hero() {
                 <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-500"></span>
               </span>
               <span className="text-[10px] sm:text-xs tracking-[0.2em] sm:tracking-[0.25em] uppercase text-gray-300 font-medium">
-                Now Open · JP Nagar, Bangalore
+                Open Now
               </span>
             </div>
           </div>
