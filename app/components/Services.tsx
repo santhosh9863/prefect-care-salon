@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const services = [
   {
@@ -51,6 +51,12 @@ type Service = typeof services[number];
 
 export default function Services() {
   const [activeService, setActiveService] = useState<Service | null>(null);
+  const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    setActiveService(null);
+    setIsOpen(false);
+  }, []);
 
   return (
     <>
@@ -72,7 +78,10 @@ export default function Services() {
             {services.map((service) => (
               <div
                 key={service.name}
-                onClick={() => setActiveService(service)}
+                onClick={() => {
+                  setActiveService(service);
+                  setTimeout(() => setIsOpen(true), 10);
+                }}
                 className="bg-white rounded-2xl p-6 border border-gray-100 shadow-md hover:shadow-2xl hover:-translate-y-2 hover:scale-105 transition-all duration-300 cursor-pointer"
               >
                 <div className="flex items-start justify-between mb-4">
@@ -100,11 +109,18 @@ export default function Services() {
 
       {activeService && (
         <div
-          className="fixed inset-0 bg-black/60 flex items-center justify-center z-50"
-          onClick={() => setActiveService(null)}
+          className={`fixed inset-0 flex items-center justify-center z-50 px-4 transition-all duration-300 ${
+            isOpen ? "bg-black/60 backdrop-blur-sm opacity-100" : "bg-black/0 opacity-0"
+          }`}
+          onClick={() => {
+            setIsOpen(false);
+            setTimeout(() => setActiveService(null), 200);
+          }}
         >
           <div
-            className="bg-white rounded-2xl p-6 max-w-md w-full transform scale-100 transition-all duration-300"
+            className={`bg-white rounded-2xl p-6 max-w-md w-full transform transition-all duration-300 ${
+              isOpen ? "scale-100 opacity-100" : "scale-90 opacity-0"
+            }`}
             onClick={(e) => e.stopPropagation()}
           >
             <div className="text-center mb-6">
@@ -126,15 +142,22 @@ export default function Services() {
               {activeService.desc}
             </p>
 
-            <button
-              onClick={() => window.location.href = '/book'}
-              className="w-full bg-red-700 text-white py-3 rounded-full font-semibold hover:bg-red-800 transition-colors"
+            <a
+              href="/book"
+              onClick={() => {
+                setIsOpen(false);
+                setActiveService(null);
+              }}
+              className="block w-full bg-red-700 text-white py-3 rounded-full font-semibold hover:bg-red-800 transition-colors text-center"
             >
               Book Appointment
-            </button>
+            </a>
 
             <button
-              onClick={() => setActiveService(null)}
+              onClick={() => {
+                setIsOpen(false);
+                setTimeout(() => setActiveService(null), 200);
+              }}
               className="mt-3 text-sm text-gray-500 w-full text-center hover:text-gray-700 transition-colors"
             >
               Close
