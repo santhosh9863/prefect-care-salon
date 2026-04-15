@@ -12,15 +12,19 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setTimeout(() => setLoading(false), 1000);
+    const timer = setTimeout(() => setLoading(false), 1200);
+    return () => clearTimeout(timer);
   }, []);
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-black text-white">
+      <div className="fixed inset-0 bg-black flex items-center justify-center z-[100]">
         <div className="text-center">
-          <div className="w-10 h-10 border-4 border-white border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p>Loading...</p>
+          <div className="relative w-16 h-16 mx-auto mb-6">
+            <div className="absolute inset-0 border-4 border-white/20 rounded-full"></div>
+            <div className="absolute inset-0 border-4 border-transparent border-t-[#B91C1C] rounded-full animate-spin"></div>
+          </div>
+          <p className="text-white/80 text-sm tracking-[0.3em] uppercase">Loading</p>
         </div>
       </div>
     );

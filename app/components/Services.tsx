@@ -67,53 +67,82 @@ export default function Services() {
     };
 
     window.addEventListener("focus", handleFocus);
-
     return () => window.removeEventListener("focus", handleFocus);
   }, []);
 
+  const openModal = (service: Service) => {
+    setActiveService(service);
+    setIsOpen(false);
+    setTimeout(() => setIsOpen(true), 10);
+  };
+
+  const closeModal = () => {
+    setIsOpen(false);
+    setTimeout(() => setActiveService(null), 300);
+  };
+
   return (
     <>
-      <section id="services" className="bg-white py-20 px-4">
+      <section id="services" className="bg-gradient-to-b from-white to-gray-50 py-24 px-4">
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-12">
-            <span className="text-[#B91C1C] text-xs font-semibold tracking-[0.2em] uppercase">
-              What We Offer
-            </span>
-            <h2 className="mt-2 text-3xl sm:text-4xl font-bold text-gray-900 tracking-wide font-[var(--font-playfair)]">
+          <div className="text-center mb-16">
+            <span className="inline-block px-4 py-1.5 rounded-full bg-[#B91C1C]/10 text-[#B91C1C] text-xs font-semibold tracking-[0.2em] uppercase mb-4">
               Our Services
+            </span>
+            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 tracking-wide font-[var(--font-playfair)] mb-4">
+              What We Offer
             </h2>
-            <p className="mt-2 text-gray-600 text-sm leading-relaxed">
-              Premium grooming tailored for you and your family
+            <p className="text-gray-600 text-base max-w-2xl mx-auto leading-relaxed">
+              Premium grooming services tailored for you and your family. Experience excellence in every service.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {services.map((service) => (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {services.map((service, index) => (
               <div
                 key={service.name}
-                onClick={() => {
-                  setActiveService(service);
-                  setIsOpen(false);
-                  setTimeout(() => setIsOpen(true), 10);
-                }}
-                className="bg-white rounded-2xl p-6 border border-gray-100 shadow-md hover:shadow-2xl hover:-translate-y-2 hover:scale-105 transition-all duration-300 cursor-pointer"
+                onClick={() => openModal(service)}
+                className="group relative bg-white rounded-2xl p-8 border border-gray-100 shadow-sm hover:shadow-2xl hover:shadow-[#B91C1C]/5 hover:-translate-y-2 transition-all duration-500 cursor-pointer overflow-hidden"
+                style={{ animationDelay: `${index * 100}ms` }}
               >
-                <div className="flex items-start justify-between mb-4">
-                  <div className="w-12 h-12 rounded-lg bg-red-50 flex items-center justify-center text-xl">
-                    {service.icon}
+                <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-[#B91C1C]/5 to-transparent rounded-bl-[100px] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                
+                <div className="relative z-10">
+                  <div className="flex items-start justify-between mb-6">
+                    <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#B91C1C]/10 to-[#B91C1C]/5 flex items-center justify-center text-3xl group-hover:scale-110 transition-transform duration-300">
+                      {service.icon}
+                    </div>
+                    <div className="text-right">
+                      <span className="text-[#B91C1C] font-bold text-xl">
+                        {service.price}
+                      </span>
+                      <span className="block text-gray-400 text-xs mt-0.5">
+                        Starting
+                      </span>
+                    </div>
                   </div>
-                  <span className="text-red-600 font-semibold text-sm">
-                    {service.price}
-                  </span>
-                </div>
 
-                <div className="space-y-3">
-                  <h3 className="text-lg font-semibold text-gray-900 tracking-wide font-[var(--font-playfair)]">
+                  <h3 className="text-xl font-bold text-gray-900 mb-3 font-[var(--font-playfair)] group-hover:text-[#B91C1C] transition-colors duration-300">
                     {service.name}
                   </h3>
-                  <p className="text-gray-700 text-sm leading-relaxed">
-                    {service.desc}
+                  <p className="text-gray-600 text-sm leading-relaxed mb-4">
+                    {service.desc.slice(0, 80)}...
                   </p>
+                  
+                  <div className="flex items-center justify-between">
+                    <span className="text-gray-400 text-sm flex items-center gap-1">
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                      {service.duration}
+                    </span>
+                    <span className="text-[#B91C1C] text-sm font-medium flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                      Learn more
+                      <svg className="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </span>
+                  </div>
                 </div>
               </div>
             ))}
@@ -121,39 +150,51 @@ export default function Services() {
         </div>
       </section>
 
-      {activeService && isOpen && (
+      {activeService && (
         <div
-          className={`fixed inset-0 flex items-center justify-center z-50 px-4 transition-all duration-300 ${
-            isOpen ? "bg-black/60 backdrop-blur-sm opacity-100" : "bg-black/0 opacity-0"
+          className={`fixed inset-0 flex items-center justify-center z-50 px-4 transition-all duration-500 ${
+            isOpen ? "bg-black/70 backdrop-blur-sm opacity-100" : "bg-black/0 opacity-0 pointer-events-none"
           }`}
-          onClick={() => {
-            setIsOpen(false);
-            setTimeout(() => setActiveService(null), 200);
-          }}
+          onClick={closeModal}
         >
           <div
-            className={`bg-white rounded-2xl p-6 max-w-md w-full relative transform transition-all duration-300 ${
-              isOpen ? "scale-100 opacity-100" : "scale-90 opacity-0"
+            className={`bg-white rounded-3xl p-8 max-w-md w-full relative transform transition-all duration-500 ${
+              isOpen ? "scale-100 opacity-100 translate-y-0" : "scale-90 opacity-0 translate-y-8"
             }`}
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="absolute -top-10 -left-10 w-40 h-40 bg-red-500/20 blur-3xl rounded-full pointer-events-none"></div>
-            <div className="text-center space-y-4">
-              <div className="text-4xl mb-2">{activeService.icon}</div>
-              <h2 className="text-xl font-bold text-gray-900">
+            <button
+              onClick={closeModal}
+              className="absolute top-4 right-4 w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center text-gray-500 hover:text-gray-700 transition-colors"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+
+            <div className="absolute -top-20 -left-20 w-48 h-48 bg-[#B91C1C]/10 blur-3xl rounded-full pointer-events-none" />
+            
+            <div className="relative z-10 text-center mb-6">
+              <div className="w-20 h-20 mx-auto rounded-2xl bg-gradient-to-br from-[#B91C1C]/10 to-[#B91C1C]/5 flex items-center justify-center text-5xl mb-4">
+                {activeService.icon}
+              </div>
+              <h2 className="text-2xl font-bold text-gray-900 font-[var(--font-playfair)] mb-3">
                 {activeService.name}
               </h2>
-              <div className="flex items-center justify-center gap-4">
-                <span className="text-red-600 font-semibold text-lg">
+              <div className="flex items-center justify-center gap-6">
+                <span className="text-[#B91C1C] font-bold text-2xl">
                   {activeService.price}
                 </span>
-                <span className="text-gray-500 text-sm">
+                <span className="text-gray-400 text-sm flex items-center gap-1.5">
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
                   {activeService.duration}
                 </span>
               </div>
             </div>
 
-            <p className="text-gray-600 text-sm leading-relaxed my-6">
+            <p className="text-gray-600 text-sm leading-relaxed mb-8 text-center">
               {activeService.desc}
             </p>
 
@@ -163,17 +204,14 @@ export default function Services() {
                 setIsOpen(false);
                 setActiveService(null);
               }}
-              className="block w-full bg-red-700 text-white py-3 rounded-full font-semibold hover:bg-red-800 hover:scale-105 active:scale-95 transition-all duration-300 shadow-lg hover:shadow-xl text-center"
+              className="block w-full bg-[#B91C1C] text-white py-4 rounded-full font-semibold text-center hover:bg-[#991B1B] hover:shadow-xl hover:shadow-[#B91C1C]/30 active:scale-[0.98] transition-all duration-300 mb-3"
             >
               Book Appointment
             </a>
 
             <button
-              onClick={() => {
-                setIsOpen(false);
-                setTimeout(() => setActiveService(null), 200);
-              }}
-              className="mt-3 text-sm text-gray-500 w-full text-center hover:text-gray-700 transition-colors"
+              onClick={closeModal}
+              className="w-full py-3 text-gray-500 hover:text-gray-700 text-sm font-medium transition-colors"
             >
               Close
             </button>

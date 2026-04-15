@@ -1,6 +1,5 @@
 import { Playfair_Display, Poppins } from "next/font/google";
-import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
+import LayoutWrapper from "./components/LayoutWrapper";
 import "./globals.css";
 
 const playfair = Playfair_Display({
@@ -21,6 +20,9 @@ export const metadata = {
   title: "Perfect Care Family Salon | JP Nagar, Bangalore",
   description:
     "Premium family salon in JP Nagar offering haircuts, facials, hair coloring, beard trims, head massage, and waxing services.",
+  icons: {
+    icon: "/icon.svg",
+  },
 };
 
 export default function RootLayout({
@@ -31,9 +33,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${playfair.variable} ${poppins.variable} font-[var(--font-poppins)] antialiased w-full min-h-screen`}>
-        <Navbar />
-        {children}
-        <Footer />
+        <LayoutWrapper>{children}</LayoutWrapper>
       </body>
     </html>
   );
