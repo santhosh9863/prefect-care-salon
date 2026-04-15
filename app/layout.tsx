@@ -1,5 +1,6 @@
 import { Playfair_Display, Poppins } from "next/font/google";
 import LayoutWrapper from "./components/LayoutWrapper";
+import ScrollManager from "./components/ScrollManager";
 import "./globals.css";
 
 const playfair = Playfair_Display({
@@ -33,6 +34,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${playfair.variable} ${poppins.variable} font-[var(--font-poppins)] antialiased w-full min-h-screen`}>
+        <ScrollManager />
         <LayoutWrapper>{children}</LayoutWrapper>
       </body>
     </html>

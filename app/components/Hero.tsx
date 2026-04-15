@@ -29,11 +29,8 @@ export default function Hero() {
 
       <div className="relative z-30 flex flex-col items-center justify-center text-center text-white min-h-screen px-5 sm:px-8 py-24 sm:py-0">
         <div className={`w-full max-w-4xl mx-auto space-y-8 transition-all duration-1000 ease-out ${isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
-          <div className="inline-flex items-center gap-3 px-5 py-3 rounded-full bg-white/10 backdrop-blur-sm border border-white/20">
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
-            </span>
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20">
+            <span className="w-2 h-2 rounded-full bg-green-500" />
             <span className="text-xs tracking-[0.25em] uppercase text-gray-300 font-medium">
               Open Now
             </span>
@@ -99,16 +96,7 @@ export default function Hero() {
             </a>
           </div>
 
-          <div className="absolute bottom-10 left-1/2 -translate-x-1/2">
-            <a href="#services" className="flex flex-col items-center gap-2 text-white/50 hover:text-white/80 transition-colors">
-              <span className="text-[10px] tracking-[0.25em] uppercase">
-                Scroll
-              </span>
-              <div className="w-5 h-8 rounded-full border border-white/30 flex justify-center pt-1">
-                <div className="w-1 h-1.5 bg-white/50 rounded-full" />
-              </div>
-            </a>
-          </div>
+          
         </div>
       </div>
 

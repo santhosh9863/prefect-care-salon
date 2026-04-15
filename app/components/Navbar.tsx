@@ -78,37 +78,21 @@ export default function Navbar() {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-[var(--z-navbar)] transition-all duration-300 ease-in-out ${
-          scrolled
-            ? "bg-white shadow-sm"
-            : "bg-white/80 backdrop-blur-md"
-        }`}
+        className="fixed top-0 left-0 right-0 z-50 bg-white shadow-sm border-b border-gray-100 transition-all duration-300 ease-in-out"
         style={{ height: scrolled ? '56px' : '64px' }}
       >
         <nav className="max-w-7xl mx-auto px-4 sm:px-6 h-full flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2 sm:gap-3 group">
             <span
-              className={`w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center text-white text-xs sm:text-sm font-bold transition-all duration-300 group-hover:scale-105 ${
-                scrolled
-                  ? "bg-gradient-to-br from-[#B91C1C] to-[#991B1B] shadow-md"
-                  : "bg-white/20 backdrop-blur-sm border border-white/30"
-              }`}
+              className="w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center text-white text-xs sm:text-sm font-bold bg-gradient-to-br from-[#B91C1C] to-[#991B1B] shadow-md transition-all duration-300 group-hover:scale-105"
             >
               PC
             </span>
             <div className="leading-tight hidden sm:block">
-              <span
-                className={`text-xs font-bold tracking-wider block transition-colors ${
-                  scrolled ? "text-gray-900" : "text-white drop-shadow-md"
-                }`}
-              >
+              <span className="text-xs font-bold tracking-wider block text-gray-900">
                 PERFECT CARE
               </span>
-              <span
-                className={`text-[8px] tracking-[0.2em] block ${
-                  scrolled ? "text-gray-500" : "text-white/70"
-                }`}
-              >
+              <span className="text-[8px] tracking-[0.2em] block text-gray-500">
                 FAMILY SALON
               </span>
             </div>
@@ -119,17 +103,7 @@ export default function Navbar() {
               <li key={link.label}>
                 <Link
                   href={link.href}
-                  className={`px-3 py-1.5 text-xs font-medium transition-all duration-300 relative ${
-                    scrolled
-                      ? "text-gray-600 hover:text-[#B91C1C]"
-                      : "text-white/80 hover:text-white"
-                  } ${
-                    activeSection === link.href.slice(1)
-                      ? scrolled
-                        ? "text-[#B91C1C]"
-                        : "text-white"
-                      : ""
-                  }`}
+                  className="px-3 py-1.5 text-xs font-medium text-gray-600 hover:text-[#B91C1C] transition-all duration-300 relative"
                 >
                   {link.label}
                 </Link>
@@ -142,11 +116,7 @@ export default function Navbar() {
               href="https://wa.me/919538111909"
               target="_blank"
               rel="noopener noreferrer"
-              className={`p-2 rounded-full transition-all duration-300 ${
-                scrolled
-                  ? "text-gray-600 hover:bg-green-500 hover:text-white"
-                  : "text-white hover:bg-white/20"
-              }`}
+              className="p-2 rounded-full text-gray-600 hover:bg-green-500 hover:text-white transition-all duration-300"
               aria-label="WhatsApp"
             >
               <svg
@@ -167,26 +137,12 @@ export default function Navbar() {
 
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className={`lg:hidden p-2 flex flex-col items-center justify-center gap-1.5 rounded-lg transition-colors duration-300 ${
-              isOpen ? "" : scrolled ? "hover:bg-gray-100" : "hover:bg-white/20"
-            }`}
+            className="lg:hidden p-2 flex flex-col items-center justify-center gap-1.5 rounded-lg hover:bg-gray-100 transition-colors duration-300"
             aria-label="Toggle menu"
           >
-            <span
-              className={`w-5 h-0.5 rounded-full transition-all duration-300 ease-in-out ${
-                isOpen ? "rotate-45 translate-y-[5px]" : ""
-              } ${scrolled || isOpen ? "bg-gray-800" : "bg-white"}`}
-            />
-            <span
-              className={`w-5 h-0.5 rounded-full transition-all duration-300 ease-in-out ${
-                isOpen ? "opacity-0 scale-0" : ""
-              } ${scrolled || isOpen ? "bg-gray-800" : "bg-white"}`}
-            />
-            <span
-              className={`w-5 h-0.5 rounded-full transition-all duration-300 ease-in-out ${
-                isOpen ? "-rotate-45 -translate-y-[5px]" : ""
-              } ${scrolled || isOpen ? "bg-gray-800" : "bg-white"}`}
-            />
+            <span className={`w-5 h-0.5 rounded-full bg-gray-800 transition-all duration-300 ease-in-out ${isOpen ? "rotate-45 translate-y-[5px]" : ""}`} />
+            <span className={`w-5 h-0.5 rounded-full bg-gray-800 transition-all duration-300 ease-in-out ${isOpen ? "opacity-0 scale-0" : ""}`} />
+            <span className={`w-5 h-0.5 rounded-full bg-gray-800 transition-all duration-300 ease-in-out ${isOpen ? "-rotate-45 -translate-y-[5px]" : ""}`} />
           </button>
         </nav>
       </header>
