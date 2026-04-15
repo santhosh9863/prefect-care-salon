@@ -11,28 +11,31 @@ import OpeningAnimation from "./components/OpeningAnimation";
 
 export default function Home() {
   const [showOpening, setShowOpening] = useState(true);
-  const [showContent, setShowContent] = useState(false);
-  const timerRef = useRef<NodeJS.Timeout | null>(null);
+  const [loaded, setLoaded] = useState(false);
+  const initialized = useRef(false);
 
   useEffect(() => {
-    timerRef.current = setTimeout(() => {
-      setShowContent(true);
-    }, 500);
-    return () => {
-      if (timerRef.current) clearTimeout(timerRef.current);
-    };
+    if (!initialized.current) {
+      initialized.current = true;
+      window.scrollTo(0, 0);
+      setLoaded(true);
+    }
   }, []);
 
   const handleOpeningComplete = () => {
     setShowOpening(false);
   };
 
+  if (!loaded) {
+    return null;
+  }
+
   if (showOpening) {
     return <OpeningAnimation onComplete={handleOpeningComplete} />;
   }
 
   return (
-    <main className={showContent ? "animate-in fade-in-up" : "opacity-0"}>
+    <main className="min-h-screen">
       <Hero />
       <Services />
       <Gallery />
