@@ -270,27 +270,27 @@ export default function Services() {
 
       {activeService && (
         <div
-          className={`fixed inset-0 flex items-center justify-center z-50 px-4 transition-all duration-500 ${
+          className={`fixed inset-0 flex items-center justify-center z-50 px-4 transition-all duration-300 ${
             isOpen
-              ? "bg-black/60 backdrop-blur-md opacity-100"
+              ? "bg-black/60 backdrop-blur-sm opacity-100"
               : "bg-black/0 opacity-0 pointer-events-none"
           }`}
           onClick={closeModal}
         >
           <div
-            className={`bg-white rounded-3xl p-8 sm:p-10 max-w-md w-full relative transform transition-all duration-500 ${
+            className={`bg-white rounded-2xl p-6 sm:p-8 max-w-[450px] w-[90%] sm:w-full shadow-2xl relative transform transition-all duration-300 ${
               isOpen
-                ? "scale-100 opacity-100 translate-y-0"
-                : "scale-90 opacity-0 translate-y-8"
+                ? "scale-100 opacity-100"
+                : "scale-95 opacity-0"
             }`}
             onClick={(e) => e.stopPropagation()}
           >
             <button
               onClick={closeModal}
-              className="absolute top-4 right-4 w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center text-gray-500 hover:text-gray-700 transition-colors"
+              className="absolute top-3 right-3 w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center text-gray-500 hover:text-gray-700 transition-colors"
             >
               <svg
-                className="w-5 h-5"
+                className="w-4 h-4"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -304,23 +304,20 @@ export default function Services() {
               </svg>
             </button>
 
-            <div className="absolute -top-20 -left-20 w-48 h-48 bg-[#B91C1C]/8 blur-3xl rounded-full pointer-events-none" />
-            <div className="absolute -bottom-10 -right-10 w-32 h-32 bg-[#B91C1C]/5 blur-2xl rounded-full pointer-events-none" />
-
-            <div className="relative z-10 text-center mb-8">
-              <div className="w-20 h-20 mx-auto rounded-2xl bg-gradient-to-br from-[#B91C1C]/15 to-[#B91C1C]/5 flex items-center justify-center text-[#B91C1C] mb-6">
+            <div className="text-center mb-6">
+              <div className="w-16 h-16 mx-auto rounded-xl bg-[#B91C1C]/10 flex items-center justify-center text-[#B91C1C] mb-4">
                 {activeService.icon}
               </div>
-              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 font-[var(--font-playfair)] mb-4">
+              <h2 className="text-xl sm:text-2xl font-bold text-gray-900 font-[var(--font-playfair)] mb-3">
                 {activeService.name}
               </h2>
-              <div className="flex items-center justify-center gap-6">
-                <span className="text-[#B91C1C] font-bold text-3xl">
+              <div className="flex items-center justify-center gap-4">
+                <span className="text-[#B91C1C] font-bold text-2xl">
                   {activeService.price}
                 </span>
-                <span className="text-gray-400 text-sm flex items-center gap-1.5">
+                <span className="text-gray-400 text-xs flex items-center gap-1">
                   <svg
-                    className="w-4 h-4"
+                    className="w-3.5 h-3.5"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -337,7 +334,7 @@ export default function Services() {
               </div>
             </div>
 
-            <p className="text-gray-600 text-sm leading-relaxed mb-8 text-center">
+            <p className="text-gray-600 text-sm leading-relaxed mb-6 text-center">
               {activeService.desc}
             </p>
 
@@ -347,14 +344,14 @@ export default function Services() {
                 setIsOpen(false);
                 setActiveService(null);
               }}
-              className="block w-full bg-[#B91C1C] text-white py-4 rounded-full font-semibold text-center hover:bg-[#991B1B] hover:shadow-xl hover:shadow-[#B91C1C]/30 active:scale-[0.98] transition-all duration-300 mb-4 sweep-effect"
+              className="block w-full bg-[#B91C1C] text-white py-3 rounded-full font-semibold text-center hover:bg-[#991B1B] transition-all duration-300 mb-3"
             >
               Book Appointment
             </a>
 
             <button
               onClick={closeModal}
-              className="w-full py-3 text-gray-500 hover:text-gray-700 text-sm font-medium transition-colors"
+              className="w-full py-2 text-gray-500 hover:text-gray-700 text-sm font-medium transition-colors"
             >
               Close
             </button>

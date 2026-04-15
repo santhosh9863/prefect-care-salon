@@ -411,10 +411,10 @@ select {
 
 @keyframes whatsappPulse {
   0%, 100% {
-    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.5);
+    transform: scale(1);
   }
   50% {
-    box-shadow: 0 0 0 15px rgba(37, 211, 102, 0);
+    transform: scale(1.05);
   }
 }
 
@@ -468,6 +468,52 @@ select {
   100% {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes loadReveal {
+  0% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  40% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes underlineLoad {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+@keyframes contentFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slowPulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.4);
+  }
+  50% {
+    transform: scale(1.02);
+    box-shadow: 0 0 0 8px rgba(37, 211, 102, 0);
   }
 }
 

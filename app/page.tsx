@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Hero from "./components/Hero";
 import Services from "./components/Services";
 import Gallery from "./components/Gallery";
@@ -10,19 +10,25 @@ import Contact from "./components/Contact";
 import LoadingScreen from "./components/LoadingScreen";
 
 export default function Home() {
-  const [loading, setLoading] = useState(true);
+  const [shouldShowLoader, setShouldShowLoader] = useState(true);
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 2500);
-    return () => clearTimeout(timer);
+    timerRef.current = setTimeout(() => {
+      setShouldShowLoader(false);
+      sessionStorage.setItem("perfectCareLoaded", "true");
+    }, 1800);
+    return () => {
+      if (timerRef.current) clearTimeout(timerRef.current);
+    };
   }, []);
 
-  if (loading) {
+  if (shouldShowLoader) {
     return <LoadingScreen />;
   }
 
   return (
-    <main className="animate-blur-in">
+    <main>
       <Hero />
       <Services />
       <Gallery />
