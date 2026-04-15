@@ -84,15 +84,15 @@ export default function Navbar() {
         <nav className="max-w-7xl mx-auto px-5 h-full flex items-center justify-between">
           <Link href="/" className="flex items-center gap-3 group">
             <span
-              className="w-10 h-10 rounded-full flex items-center justify-center text-white text-sm font-bold bg-gradient-to-br from-[#B91C1C] to-[#991B1B] shadow-md transition-transform duration-300 group-hover:scale-105"
+              className="w-9 h-9 rounded-full flex items-center justify-center text-white text-xs font-bold bg-gradient-to-br from-[#B91C1C] to-[#991B1B] shadow transition-transform duration-300 group-hover:scale-105"
             >
               PC
             </span>
-            <div className="leading-tight hidden lg:block">
+            <div className="leading-tight">
               <span className="text-sm font-bold tracking-wider block text-gray-900">
                 PERFECT CARE
               </span>
-              <span className="text-[9px] tracking-[0.2em] block text-gray-500">
+              <span className="text-[8px] tracking-[0.2em] block text-gray-500">
                 FAMILY SALON
               </span>
             </div>
