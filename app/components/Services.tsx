@@ -10,7 +10,6 @@ const services = [
     price: "₹300+",
     duration: "30-45 mins",
     icon: "✂️",
-    image: "/services/haircut.jpg",
   },
   {
     name: "Beard Trim",
@@ -18,7 +17,6 @@ const services = [
     price: "₹150+",
     duration: "20-30 mins",
     icon: "🪒",
-    image: "/services/beard.jpg",
   },
   {
     name: "Facial",
@@ -26,7 +24,6 @@ const services = [
     price: "₹1200+",
     duration: "45-60 mins",
     icon: "✨",
-    image: "/services/facial.jpg",
   },
   {
     name: "Hair Coloring",
@@ -34,7 +31,6 @@ const services = [
     price: "₹2000+",
     duration: "90-120 mins",
     icon: "🎨",
-    image: "/services/coloring.jpg",
   },
   {
     name: "Head Massage",
@@ -42,7 +38,6 @@ const services = [
     price: "₹500+",
     duration: "20-30 mins",
     icon: "💆",
-    image: "/services/massage.jpg",
   },
   {
     name: "Waxing",
@@ -50,7 +45,6 @@ const services = [
     price: "₹500+",
     duration: "30-60 mins",
     icon: "🧖",
-    image: "/services/waxing.jpg",
   },
 ];
 
@@ -144,17 +138,12 @@ export default function Services() {
             onClick={(e) => e.stopPropagation()}
           >
             <div className="absolute -top-10 -left-10 w-40 h-40 bg-red-500/20 blur-3xl rounded-full pointer-events-none"></div>
-            <img
-              src={activeService.image}
-              alt={activeService.name}
-              className="w-full h-40 object-cover rounded-xl mb-4"
-            />
-            <div className="text-center mb-6">
-              <span className="text-5xl mb-4 block">{activeService.icon}</span>
-              <h2 className="text-xl font-bold mb-2 text-gray-900">
+            <div className="text-center space-y-4">
+              <div className="text-4xl mb-2">{activeService.icon}</div>
+              <h2 className="text-xl font-bold text-gray-900">
                 {activeService.name}
               </h2>
-              <div className="flex items-center justify-center gap-4 mt-2">
+              <div className="flex items-center justify-center gap-4">
                 <span className="text-red-600 font-semibold text-lg">
                   {activeService.price}
                 </span>
@@ -164,7 +153,7 @@ export default function Services() {
               </div>
             </div>
 
-            <p className="text-gray-600 text-sm leading-relaxed mb-6">
+            <p className="text-gray-600 text-sm leading-relaxed my-6">
               {activeService.desc}
             </p>
 
