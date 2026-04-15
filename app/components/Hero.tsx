@@ -31,7 +31,7 @@ function SalonStatus() {
 
 export default function Hero() {
   return (
-    <section className="relative min-h-screen w-full overflow-hidden">
+    <section className="relative min-h-screen w-full overflow-hidden pt-16 sm:pt-20">
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/60 to-black/70" />
         <img
