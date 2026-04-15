@@ -1,28 +1,35 @@
 export default function Hero() {
   return (
     <section className="relative h-screen w-full overflow-hidden">
-      <img
-        src="https://images.unsplash.com/photo-1580618672591-eb180b1a973f?w=1920&q=80"
-        alt="Salon Interior"
-        className="absolute inset-0 w-full h-full object-cover"
-      />
+      <div className="absolute inset-0">
+        <img
+          src="https://images.unsplash.com/photo-1580618672591-eb180b1a973f?w=1920&q=80"
+          alt="Salon Interior"
+          className="w-full h-full object-cover"
+        />
+      </div>
 
-      <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/60 to-black/80" />
+      <div className="absolute inset-0 bg-black/70"></div>
 
-      <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4">
+      <div className="relative z-10 flex flex-col items-center justify-center text-center text-white h-full px-4">
         <span className="inline-block px-4 py-1.5 rounded-full border border-white/20 text-gray-300 text-xs tracking-[0.15em] uppercase mb-6 backdrop-blur-sm">
           JP Nagar, Bangalore
         </span>
 
-        <h1 className="text-white text-4xl sm:text-5xl md:text-7xl font-bold tracking-wider leading-tight font-[var(--font-playfair)] drop-shadow-lg">
+        <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-wide font-[var(--font-playfair)]">
           PERFECT CARE
         </h1>
+
+        {/* ⭐ TRUST ELEMENT ADDED */}
+        <p className="mt-2 text-yellow-400 font-semibold">
+          ⭐ Rated 4.9 by 2500+ customers
+        </p>
 
         <p className="text-gray-200 mt-3 text-xs sm:text-sm tracking-[0.25em] uppercase">
           Family Salon
         </p>
 
-        <p className="text-gray-300 mt-6 max-w-lg text-base sm:text-lg leading-relaxed px-4 drop-shadow-md">
+        <p className="text-gray-300 mt-6 max-w-lg text-base sm:text-lg leading-relaxed px-4">
           Experience premium grooming with expert stylists and a relaxing environment.
         </p>
 

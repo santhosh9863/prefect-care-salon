@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { usePathname } from 'next/navigation';
 
 const services = [
   {
@@ -9,6 +10,7 @@ const services = [
     price: "₹300+",
     duration: "30-45 mins",
     icon: "✂️",
+    image: "/services/haircut.jpg",
   },
   {
     name: "Beard Trim",
@@ -16,6 +18,7 @@ const services = [
     price: "₹150+",
     duration: "20-30 mins",
     icon: "🪒",
+    image: "/services/beard.jpg",
   },
   {
     name: "Facial",
@@ -23,6 +26,7 @@ const services = [
     price: "₹1200+",
     duration: "45-60 mins",
     icon: "✨",
+    image: "/services/facial.jpg",
   },
   {
     name: "Hair Coloring",
@@ -30,6 +34,7 @@ const services = [
     price: "₹2000+",
     duration: "90-120 mins",
     icon: "🎨",
+    image: "/services/coloring.jpg",
   },
   {
     name: "Head Massage",
@@ -37,6 +42,7 @@ const services = [
     price: "₹500+",
     duration: "20-30 mins",
     icon: "💆",
+    image: "/services/massage.jpg",
   },
   {
     name: "Waxing",
@@ -44,6 +50,7 @@ const services = [
     price: "₹500+",
     duration: "30-60 mins",
     icon: "🧖",
+    image: "/services/waxing.jpg",
   },
 ];
 
@@ -52,10 +59,22 @@ type Service = typeof services[number];
 export default function Services() {
   const [activeService, setActiveService] = useState<Service | null>(null);
   const [isOpen, setIsOpen] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     setActiveService(null);
     setIsOpen(false);
+  }, [pathname]);
+
+  useEffect(() => {
+    const handleFocus = () => {
+      setActiveService(null);
+      setIsOpen(false);
+    };
+
+    window.addEventListener("focus", handleFocus);
+
+    return () => window.removeEventListener("focus", handleFocus);
   }, []);
 
   return (
@@ -80,6 +99,7 @@ export default function Services() {
                 key={service.name}
                 onClick={() => {
                   setActiveService(service);
+                  setIsOpen(false);
                   setTimeout(() => setIsOpen(true), 10);
                 }}
                 className="bg-white rounded-2xl p-6 border border-gray-100 shadow-md hover:shadow-2xl hover:-translate-y-2 hover:scale-105 transition-all duration-300 cursor-pointer"
@@ -107,7 +127,7 @@ export default function Services() {
         </div>
       </section>
 
-      {activeService && (
+      {activeService && isOpen && (
         <div
           className={`fixed inset-0 flex items-center justify-center z-50 px-4 transition-all duration-300 ${
             isOpen ? "bg-black/60 backdrop-blur-sm opacity-100" : "bg-black/0 opacity-0"
@@ -118,11 +138,17 @@ export default function Services() {
           }}
         >
           <div
-            className={`bg-white rounded-2xl p-6 max-w-md w-full transform transition-all duration-300 ${
+            className={`bg-white rounded-2xl p-6 max-w-md w-full relative transform transition-all duration-300 ${
               isOpen ? "scale-100 opacity-100" : "scale-90 opacity-0"
             }`}
             onClick={(e) => e.stopPropagation()}
           >
+            <div className="absolute -top-10 -left-10 w-40 h-40 bg-red-500/20 blur-3xl rounded-full pointer-events-none"></div>
+            <img
+              src={activeService.image}
+              alt={activeService.name}
+              className="w-full h-40 object-cover rounded-xl mb-4"
+            />
             <div className="text-center mb-6">
               <span className="text-5xl mb-4 block">{activeService.icon}</span>
               <h2 className="text-xl font-bold mb-2 text-gray-900">
@@ -148,7 +174,7 @@ export default function Services() {
                 setIsOpen(false);
                 setActiveService(null);
               }}
-              className="block w-full bg-red-700 text-white py-3 rounded-full font-semibold hover:bg-red-800 transition-colors text-center"
+              className="block w-full bg-red-700 text-white py-3 rounded-full font-semibold hover:bg-red-800 hover:scale-105 active:scale-95 transition-all duration-300 shadow-lg hover:shadow-xl text-center"
             >
               Book Appointment
             </a>
