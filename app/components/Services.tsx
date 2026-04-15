@@ -270,9 +270,9 @@ export default function Services() {
 
       {activeService && (
         <div
-          className={`fixed inset-0 flex items-center justify-center z-50 px-4 transition-all duration-300 ${
+          className={`fixed inset-0 flex items-center justify-center z-[var(--z-modal)] px-4 transition-all duration-300 ${
             isOpen
-              ? "bg-black/60 backdrop-blur-sm opacity-100"
+              ? "bg-black/60 backdrop-blur-md opacity-100"
               : "bg-black/0 opacity-0 pointer-events-none"
           }`}
           onClick={closeModal}
@@ -280,8 +280,8 @@ export default function Services() {
           <div
             className={`bg-white rounded-2xl p-6 sm:p-8 max-w-[450px] w-[90%] sm:w-full shadow-2xl relative transform transition-all duration-300 ${
               isOpen
-                ? "scale-100 opacity-100"
-                : "scale-95 opacity-0"
+                ? "scale-100 opacity-100 translate-y-0"
+                : "scale-95 opacity-0 translate-y-4"
             }`}
             onClick={(e) => e.stopPropagation()}
           >
@@ -344,7 +344,7 @@ export default function Services() {
                 setIsOpen(false);
                 setActiveService(null);
               }}
-              className="block w-full bg-[#B91C1C] text-white py-3 rounded-full font-semibold text-center hover:bg-[#991B1B] transition-all duration-300 mb-3"
+              className="block w-full bg-[#B91C1C] text-white py-3 rounded-full font-semibold text-center hover:bg-[#991B1B] transition-all duration-300 mb-3 active:scale-95"
             >
               Book Appointment
             </a>

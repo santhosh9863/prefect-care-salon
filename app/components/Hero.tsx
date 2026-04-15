@@ -1,10 +1,19 @@
 "use client";
 
+import { useState, useEffect } from "react";
+
 export default function Hero() {
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setIsLoaded(true), 100);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <section className="relative min-h-screen w-full overflow-hidden">
       <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-black/50 z-10" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/60 to-black/70 z-10" />
         <img
           src="https://images.unsplash.com/photo-1560066984-138dadb4c035?w=1920&q=80"
           alt="Perfect Care Family Salon Interior"
@@ -18,8 +27,8 @@ export default function Hero() {
         <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
       </div>
 
-      <div className="relative z-30 flex flex-col items-center justify-center text-center text-white min-h-screen px-5 sm:px-8 py-20 sm:py-0">
-        <div className="w-full max-w-4xl mx-auto space-y-8">
+      <div className="relative z-30 flex flex-col items-center justify-center text-center text-white min-h-screen px-5 sm:px-8 py-24 sm:py-0">
+        <div className={`w-full max-w-4xl mx-auto space-y-8 transition-all duration-1000 ease-out ${isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
           <div className="inline-flex items-center gap-3 px-5 py-3 rounded-full bg-white/10 backdrop-blur-sm border border-white/20">
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
@@ -31,12 +40,12 @@ export default function Hero() {
           </div>
 
           <div className="space-y-2">
-            <p className="text-white/50 text-xs tracking-[0.4em] uppercase font-light">
+            <p className="text-white/60 text-xs tracking-[0.4em] uppercase font-light">
               Welcome to
             </p>
             <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight font-[var(--font-playfair)] leading-[1.1]">
-              <span className="block text-white/95">PERFECT</span>
-              <span className="block bg-gradient-to-r from-[#B91C1C] via-red-500 to-[#B91C1C] bg-clip-text text-transparent">
+              <span className="block text-white drop-shadow-lg">PERFECT</span>
+              <span className="block text-white drop-shadow-lg">
                 CARE
               </span>
             </h1>
@@ -58,7 +67,7 @@ export default function Hero() {
                 </svg>
               ))}
             </div>
-            <span className="text-xs sm:text-sm font-medium text-white/80 ml-2">
+            <span className="text-xs sm:text-sm font-medium text-gray-300 ml-2">
               Rated 4.9 by 2,500+ clients
             </span>
           </div>
@@ -71,7 +80,7 @@ export default function Hero() {
           <div className="pt-4">
             <a
               href="/book"
-              className="inline-flex items-center gap-3 px-10 py-4 bg-[#B91C1C] text-white font-semibold text-base rounded-full hover:bg-[#991B1B] transition-all duration-300 hover:shadow-xl hover:shadow-red-900/30"
+              className="inline-flex items-center gap-3 px-10 py-4 bg-[#B91C1C] text-white font-semibold text-base rounded-full hover:bg-[#991B1B] transition-all duration-300 hover:shadow-xl hover:shadow-red-900/30 active:scale-95"
             >
               Book Appointment
               <svg

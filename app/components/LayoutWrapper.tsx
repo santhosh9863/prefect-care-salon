@@ -7,15 +7,26 @@ import Footer from "./Footer";
 
 function FloatingWhatsApp() {
   const [isVisible, setIsVisible] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => setIsVisible(true), 800);
+    const timer = setTimeout(() => setIsVisible(true), 1200);
     return () => clearTimeout(timer);
   }, []);
 
+  useEffect(() => {
+    const handleMenuChange = (e: CustomEvent<{ open: boolean }>) => {
+      setMenuOpen(e.detail.open);
+    };
+    window.addEventListener('menustatechange', handleMenuChange as EventListener);
+    return () => window.removeEventListener('menustatechange', handleMenuChange as EventListener);
+  }, []);
+
+  if (menuOpen) return null;
+
   return (
     <div
-      className={`fixed bottom-6 right-6 z-[60] transition-all duration-700 ease-out ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+      className={`fixed bottom-6 right-6 z-40 transition-all duration-700 ease-out ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
         }`}
       style={{ marginBottom: 'env(safe-area-inset-bottom, 0)' }}
     >
@@ -23,7 +34,7 @@ function FloatingWhatsApp() {
         href="https://wa.me/919538111909?text=Hi%20I%20want%20to%20book%20an%20appointment%20at%20Perfect%20Care%20Family%20Salon"
         target="_blank"
         rel="noopener noreferrer"
-        className="relative flex items-center justify-center w-14 h-14 rounded-full bg-gradient-to-br from-green-400 to-green-600 text-white shadow-lg shadow-green-900/30 border-2 border-white transition-all duration-300 hover:scale-105"
+        className="relative flex items-center justify-center w-14 h-14 rounded-full bg-gradient-to-br from-green-400 to-green-600 text-white shadow-lg shadow-green-900/30 border-2 border-white transition-all duration-300 hover:scale-105 active:scale-95"
         aria-label="Chat on WhatsApp"
       >
         <svg

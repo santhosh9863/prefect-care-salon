@@ -9,6 +9,14 @@
   --glass-white: rgba(255, 255, 255, 0.7);
   --glass-border: rgba(255, 255, 255, 0.5);
   --mirror-shine: linear-gradient(135deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 50%);
+  
+  --z-base: 1;
+  --z-floating: 100;
+  --z-sticky: 200;
+  --z-navbar: 300;
+  --z-menu-overlay: 400;
+  --z-modal: 500;
+  --z-opening: 9999;
 }
 
 @theme inline {
