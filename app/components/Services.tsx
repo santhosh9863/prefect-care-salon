@@ -1,69 +1,199 @@
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
-import { usePathname } from 'next/navigation';
+import { useState, useEffect, useRef } from "react";
 
 const services = [
   {
-    name: "Haircut",
-    desc: "Precision cuts styled to match your personality and face shape. Our expert stylists analyze your face shape and hair texture to deliver the perfect cut every time.",
-    price: "₹300+",
+    name: "Haircut & Styling",
+    desc: "Precision cuts styled to match your personality and face shape. Our expert stylists analyze your features to deliver the perfect look.",
+    price: "₹300",
     duration: "30-45 mins",
-    icon: "✂️",
+    icon: (
+      <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M14.121 14.121L19 19m-7-7l7-7m-7 7l-2.879 2.879M12 12L9.121 9.121m0 5.758a3 3 0 10-4.243-4.243 3 3 0 004.243 4.243zM12 12L9.121 9.121M12 12V7m0 5l2.879 2.879M12 12L9.121 9.121" />
+      </svg>
+    ),
   },
   {
-    name: "Beard Trim",
+    name: "Beard Sculpting",
     desc: "Sharp, clean beard shaping with hot towel finish. Get the perfect beard line and style that complements your features.",
-    price: "₹150+",
+    price: "₹150",
     duration: "20-30 mins",
-    icon: "🪒",
+    icon: (
+      <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5.121 17.804l-3.12-3.121a1 1 0 011.414-1.414l3.121 3.12M18.364 5.636l-3.536-3.536a1 1 0 011.414-1.414l3.536 3.536M8.464 15.536l-3.535-3.536a1 1 0 011.414-1.414l3.535 3.536M15.536 8.464l3.535 3.536a1 1 0 01-1.414 1.414l-3.535-3.536M12 12v-2.5m0 5l-3-3m3 3l3-3" />
+      </svg>
+    ),
   },
   {
-    name: "Facial",
-    desc: "Deep cleansing facial for refreshed, glowing skin. Includes steam, extraction, massage, and mask for ultimate relaxation.",
-    price: "₹1200+",
+    name: "Signature Facial",
+    desc: "Deep cleansing facial for refreshed, glowing skin. Includes steam, extraction, massage, and premium mask for ultimate relaxation.",
+    price: "₹1,200",
     duration: "45-60 mins",
-    icon: "✨",
+    icon: (
+      <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+      </svg>
+    ),
   },
   {
     name: "Hair Coloring",
-    desc: "Premium long-lasting color with L'Oréal products. Choose from a wide range of shades for a natural or bold look.",
-    price: "₹2000+",
+    desc: "Premium long-lasting color with L'Oréal products. Choose from a wide range of shades for a natural or bold transformation.",
+    price: "₹2,000",
     duration: "90-120 mins",
-    icon: "🎨",
+    icon: (
+      <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
+      </svg>
+    ),
   },
   {
-    name: "Head Massage",
+    name: "Royal Head Massage",
     desc: "Relaxing scalp massage to relieve stress and tension. Uses premium oils for deep relaxation and improved blood circulation.",
-    price: "₹500+",
+    price: "₹500",
     duration: "20-30 mins",
-    icon: "💆",
+    icon: (
+      <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+      </svg>
+    ),
   },
   {
-    name: "Waxing",
-    desc: "Smooth, gentle waxing for a clean, polished look. Using premium wax for minimal discomfort and maximum results.",
-    price: "₹500+",
+    name: "Premium Waxing",
+    desc: "Smooth, gentle waxing for a clean, polished look. Using premium Rica wax for minimal discomfort and maximum results.",
+    price: "₹500",
     duration: "30-60 mins",
-    icon: "🧖",
+    icon: (
+      <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+      </svg>
+    ),
   },
 ];
 
-type Service = typeof services[number];
+type Service = (typeof services)[number];
+
+function ServiceCard({
+  service,
+  index,
+  onClick,
+}: {
+  service: Service;
+  index: number;
+  onClick: () => void;
+}) {
+  const [isVisible, setIsVisible] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => setIsVisible(true), index * 100);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (ref.current) {
+      observer.observe(ref.current);
+    }
+
+    return () => observer.disconnect();
+  }, [index]);
+
+  return (
+    <div
+      ref={ref}
+      onClick={onClick}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      className={`group relative glass-card rounded-3xl p-8 cursor-pointer overflow-hidden transition-all duration-700 ease-out hover-lift ${
+        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
+      }`}
+    >
+      <div
+        className={`absolute inset-0 bg-gradient-to-br from-[#B91C1C]/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl`}
+      />
+
+      <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-br from-[#B91C1C]/10 to-transparent rounded-bl-[100px] opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+
+      <div className="relative z-10">
+        <div className="flex items-start justify-between mb-8">
+          <div
+            className={`w-16 h-16 rounded-2xl bg-gradient-to-br from-[#B91C1C]/10 to-[#B91C1C]/5 flex items-center justify-center text-[#B91C1C] transition-all duration-500 ${
+              isHovered ? "scale-110 bg-[#B91C1C] text-white" : ""
+            }`}
+          >
+            {service.icon}
+          </div>
+          <div className="text-right">
+            <span className="text-[#B91C1C] font-bold text-2xl">
+              {service.price}
+            </span>
+            <span className="block text-gray-400 text-xs mt-0.5">Starting</span>
+          </div>
+        </div>
+
+        <h3 className="text-xl font-bold text-gray-900 mb-4 font-[var(--font-playfair)] group-hover:text-[#B91C1C] transition-colors duration-300">
+          {service.name}
+        </h3>
+        <p className="text-gray-600 text-sm leading-relaxed mb-6">
+          {service.desc}
+        </p>
+
+        <div className="flex items-center justify-between pt-5 border-t border-gray-100/50">
+          <span className="text-gray-400 text-sm flex items-center gap-2">
+            <svg
+              className="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
+            </svg>
+            {service.duration}
+          </span>
+          <span className="text-[#B91C1C] text-sm font-medium flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-x-2 group-hover:translate-x-0">
+            Learn more
+            <svg
+              className="w-4 h-4 transition-transform group-hover:translate-x-1"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M9 5l7 7-7 7"
+              />
+            </svg>
+          </span>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default function Services() {
   const [activeService, setActiveService] = useState<Service | null>(null);
   const [isOpen, setIsOpen] = useState(false);
-  const pathname = usePathname();
 
-  useEffect(() => {
+  const closeModalHandler = () => {
     setActiveService(null);
     setIsOpen(false);
-  }, [pathname]);
+  };
 
   useEffect(() => {
     const handleFocus = () => {
-      setActiveService(null);
-      setIsOpen(false);
+      closeModalHandler();
     };
 
     window.addEventListener("focus", handleFocus);
@@ -83,69 +213,55 @@ export default function Services() {
 
   return (
     <>
-      <section id="services" className="bg-gradient-to-b from-white to-gray-50 py-24 px-4">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16">
-            <span className="inline-block px-4 py-1.5 rounded-full bg-[#B91C1C]/10 text-[#B91C1C] text-xs font-semibold tracking-[0.2em] uppercase mb-4">
+      <section id="services" className="relative py-28 px-4 sm:px-6 salon-ambient overflow-hidden">
+        <div className="absolute inset-0 warm-lighting pointer-events-none" />
+
+        <div className="max-w-7xl mx-auto relative">
+          <div className="text-center mb-20">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#B91C1C]/8 text-[#B91C1C] text-xs font-semibold tracking-[0.2em] uppercase mb-6">
+              <span className="w-1.5 h-1.5 bg-[#B91C1C] rounded-full" />
               Our Services
-            </span>
-            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 tracking-wide font-[var(--font-playfair)] mb-4">
-              What We Offer
+            </div>
+            <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold text-gray-900 tracking-wide font-[var(--font-playfair)] mb-6">
+              Premium Workstations
             </h2>
-            <p className="text-gray-600 text-base max-w-2xl mx-auto leading-relaxed">
-              Premium grooming services tailored for you and your family. Experience excellence in every service.
+            <p className="text-gray-500 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
+              Each service station is equipped with the finest tools and
+              products, ensuring you receive nothing but the best care.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
             {services.map((service, index) => (
-              <div
+              <ServiceCard
                 key={service.name}
+                service={service}
+                index={index}
                 onClick={() => openModal(service)}
-                className="group relative bg-white rounded-2xl p-8 border border-gray-100 shadow-sm hover:shadow-2xl hover:shadow-[#B91C1C]/5 hover:-translate-y-2 transition-all duration-500 cursor-pointer overflow-hidden"
-                style={{ animationDelay: `${index * 100}ms` }}
-              >
-                <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-[#B91C1C]/5 to-transparent rounded-bl-[100px] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                
-                <div className="relative z-10">
-                  <div className="flex items-start justify-between mb-6">
-                    <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#B91C1C]/10 to-[#B91C1C]/5 flex items-center justify-center text-3xl group-hover:scale-110 transition-transform duration-300">
-                      {service.icon}
-                    </div>
-                    <div className="text-right">
-                      <span className="text-[#B91C1C] font-bold text-xl">
-                        {service.price}
-                      </span>
-                      <span className="block text-gray-400 text-xs mt-0.5">
-                        Starting
-                      </span>
-                    </div>
-                  </div>
-
-                  <h3 className="text-xl font-bold text-gray-900 mb-3 font-[var(--font-playfair)] group-hover:text-[#B91C1C] transition-colors duration-300">
-                    {service.name}
-                  </h3>
-                  <p className="text-gray-600 text-sm leading-relaxed mb-4">
-                    {service.desc.slice(0, 80)}...
-                  </p>
-                  
-                  <div className="flex items-center justify-between">
-                    <span className="text-gray-400 text-sm flex items-center gap-1">
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                      </svg>
-                      {service.duration}
-                    </span>
-                    <span className="text-[#B91C1C] text-sm font-medium flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                      Learn more
-                      <svg className="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                      </svg>
-                    </span>
-                  </div>
-                </div>
-              </div>
+              />
             ))}
+          </div>
+
+          <div className="mt-16 text-center">
+            <a
+              href="/book"
+              className="inline-flex items-center gap-3 px-8 py-4 bg-[#B91C1C] text-white font-semibold rounded-full hover:bg-[#991B1B] transition-all duration-300 hover:shadow-xl hover:shadow-red-900/30 hover:scale-105 sweep-effect"
+            >
+              Book Your Session
+              <svg
+                className="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M17 8l4 4m0 0l-4 4m4-4H3"
+                />
+              </svg>
+            </a>
           </div>
         </div>
       </section>
@@ -153,13 +269,17 @@ export default function Services() {
       {activeService && (
         <div
           className={`fixed inset-0 flex items-center justify-center z-50 px-4 transition-all duration-500 ${
-            isOpen ? "bg-black/70 backdrop-blur-sm opacity-100" : "bg-black/0 opacity-0 pointer-events-none"
+            isOpen
+              ? "bg-black/60 backdrop-blur-md opacity-100"
+              : "bg-black/0 opacity-0 pointer-events-none"
           }`}
           onClick={closeModal}
         >
           <div
-            className={`bg-white rounded-3xl p-8 max-w-md w-full relative transform transition-all duration-500 ${
-              isOpen ? "scale-100 opacity-100 translate-y-0" : "scale-90 opacity-0 translate-y-8"
+            className={`bg-white rounded-3xl p-8 sm:p-10 max-w-md w-full relative transform transition-all duration-500 ${
+              isOpen
+                ? "scale-100 opacity-100 translate-y-0"
+                : "scale-90 opacity-0 translate-y-8"
             }`}
             onClick={(e) => e.stopPropagation()}
           >
@@ -167,27 +287,48 @@ export default function Services() {
               onClick={closeModal}
               className="absolute top-4 right-4 w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center text-gray-500 hover:text-gray-700 transition-colors"
             >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              <svg
+                className="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
               </svg>
             </button>
 
-            <div className="absolute -top-20 -left-20 w-48 h-48 bg-[#B91C1C]/10 blur-3xl rounded-full pointer-events-none" />
-            
-            <div className="relative z-10 text-center mb-6">
-              <div className="w-20 h-20 mx-auto rounded-2xl bg-gradient-to-br from-[#B91C1C]/10 to-[#B91C1C]/5 flex items-center justify-center text-5xl mb-4">
+            <div className="absolute -top-20 -left-20 w-48 h-48 bg-[#B91C1C]/8 blur-3xl rounded-full pointer-events-none" />
+            <div className="absolute -bottom-10 -right-10 w-32 h-32 bg-[#B91C1C]/5 blur-2xl rounded-full pointer-events-none" />
+
+            <div className="relative z-10 text-center mb-8">
+              <div className="w-20 h-20 mx-auto rounded-2xl bg-gradient-to-br from-[#B91C1C]/15 to-[#B91C1C]/5 flex items-center justify-center text-[#B91C1C] mb-6">
                 {activeService.icon}
               </div>
-              <h2 className="text-2xl font-bold text-gray-900 font-[var(--font-playfair)] mb-3">
+              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 font-[var(--font-playfair)] mb-4">
                 {activeService.name}
               </h2>
               <div className="flex items-center justify-center gap-6">
-                <span className="text-[#B91C1C] font-bold text-2xl">
+                <span className="text-[#B91C1C] font-bold text-3xl">
                   {activeService.price}
                 </span>
                 <span className="text-gray-400 text-sm flex items-center gap-1.5">
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  <svg
+                    className="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
                   </svg>
                   {activeService.duration}
                 </span>
@@ -204,7 +345,7 @@ export default function Services() {
                 setIsOpen(false);
                 setActiveService(null);
               }}
-              className="block w-full bg-[#B91C1C] text-white py-4 rounded-full font-semibold text-center hover:bg-[#991B1B] hover:shadow-xl hover:shadow-[#B91C1C]/30 active:scale-[0.98] transition-all duration-300 mb-3"
+              className="block w-full bg-[#B91C1C] text-white py-4 rounded-full font-semibold text-center hover:bg-[#991B1B] hover:shadow-xl hover:shadow-[#B91C1C]/30 active:scale-[0.98] transition-all duration-300 mb-4 sweep-effect"
             >
               Book Appointment
             </a>

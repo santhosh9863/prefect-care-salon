@@ -1,106 +1,182 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 
 const galleryImages = [
-  { 
-    label: "Premium Styling", 
+  {
+    label: "Premium Styling Suite",
     src: "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=1200&q=80",
-    span: "col-span-2 row-span-2"
+    span: "col-span-2 row-span-2",
+    aspect: "aspect-[4/3]",
   },
-  { 
-    label: "Hair Treatment", 
+  {
+    label: "Hair Treatment",
     src: "https://images.unsplash.com/photo-1562322140-8baeececf3df?w=800&q=80",
-    span: ""
+    span: "",
+    aspect: "aspect-square",
   },
-  { 
-    label: "Grooming", 
+  {
+    label: "Beard Grooming",
     src: "https://images.unsplash.com/photo-1580618672591-eb180b1a973f?w=800&q=80",
-    span: ""
+    span: "",
+    aspect: "aspect-square",
   },
-  { 
-    label: "Color Magic", 
+  {
+    label: "Color Magic",
     src: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=800&q=80",
-    span: ""
+    span: "",
+    aspect: "aspect-square",
   },
-  { 
-    label: "Salon Ambiance", 
+  {
+    label: "Salon Ambiance",
     src: "https://images.unsplash.com/photo-1522338140262-f46f5913618a?w=800&q=80",
-    span: ""
+    span: "",
+    aspect: "aspect-square",
   },
-  { 
-    label: "Client Care", 
+  {
+    label: "Client Care",
     src: "https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=800&q=80",
-    span: ""
+    span: "",
+    aspect: "aspect-square",
   },
 ];
 
 export default function Gallery() {
   const [activeImg, setActiveImg] = useState<string | null>(null);
-  const [isLoaded, setIsLoaded] = useState(false);
+  const [isVisible, setIsVisible] = useState<boolean[]>(new Array(galleryImages.length).fill(false));
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const index = parseInt(entry.target.getAttribute("data-index") || "0");
+            setTimeout(() => {
+              setIsVisible((prev) => {
+                const newState = [...prev];
+                newState[index] = true;
+                return newState;
+              });
+            }, index * 100);
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    const items = sectionRef.current?.querySelectorAll("[data-index]");
+    items?.forEach((item) => observer.observe(item));
+
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (activeImg) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [activeImg]);
 
   const openLightbox = (src: string) => {
     setActiveImg(src);
-    document.body.style.overflow = "hidden";
   };
 
   const closeLightbox = () => {
     setActiveImg(null);
-    document.body.style.overflow = "";
+  };
+
+  const navigateImage = (direction: "prev" | "next") => {
+    if (!activeImg) return;
+    const currentIndex = galleryImages.findIndex((img) => img.src === activeImg);
+    let newIndex: number;
+    if (direction === "prev") {
+      newIndex = currentIndex === 0 ? galleryImages.length - 1 : currentIndex - 1;
+    } else {
+      newIndex = currentIndex === galleryImages.length - 1 ? 0 : currentIndex + 1;
+    }
+    setActiveImg(galleryImages[newIndex].src);
   };
 
   return (
     <>
-      <section id="gallery" className="bg-gray-50 py-24 px-4">
+      <section
+        ref={sectionRef}
+        id="gallery"
+        className="relative py-28 px-4 sm:px-6 bg-white overflow-hidden"
+      >
+        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent" />
+        <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent" />
+
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <span className="inline-block px-4 py-1.5 rounded-full bg-[#B91C1C]/10 text-[#B91C1C] text-xs font-semibold tracking-[0.2em] uppercase mb-4">
-              Our Gallery
-            </span>
-            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 tracking-wide font-[var(--font-playfair)] mb-4">
-              A Glimpse of Our Work
+          <div className="text-center mb-20">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#B91C1C]/8 text-[#B91C1C] text-xs font-semibold tracking-[0.2em] uppercase mb-6">
+              <span className="w-1.5 h-1.5 bg-[#B91C1C] rounded-full" />
+              Our Work
+            </div>
+            <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold text-gray-900 tracking-wide font-[var(--font-playfair)] mb-6">
+              Gallery
             </h2>
-            <p className="text-gray-600 text-base max-w-2xl mx-auto">
-              See the artistry and precision that goes into every service we provide.
+            <p className="text-gray-500 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
+              A glimpse into our world of beauty and precision. Every detail,
+              every transformation, captured for you.
             </p>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 auto-rows-[200px] md:auto-rows-[250px]">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 auto-rows-[200px] md:auto-rows-[280px] lg:auto-rows-[300px]">
             {galleryImages.map((img, i) => (
               <div
                 key={i}
+                data-index={i}
                 onClick={() => openLightbox(img.src)}
-                className={`relative overflow-hidden rounded-2xl cursor-pointer group ${img.span || ""} ${
-                  !isLoaded ? "opacity-0" : "opacity-100"
-                } transition-all duration-700`}
-                style={{ 
-                  transitionDelay: `${i * 100}ms`,
-                  opacity: isLoaded ? undefined : 0
-                }}
-                onLoad={() => setIsLoaded(true)}
+                className={`relative overflow-hidden rounded-2xl cursor-pointer group ${
+                  img.span || ""
+                } transition-all duration-700 ${
+                  isVisible[i] ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+                }`}
               >
-                <img
-                  src={img.src}
-                  alt={img.label}
-                  className="w-full h-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-110"
-                  loading="lazy"
-                />
+                <div
+                  className={`w-full h-full ${img.aspect || "aspect-square"}`}
+                >
+                  <img
+                    src={img.src}
+                    alt={img.label}
+                    className="w-full h-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-110"
+                    loading="lazy"
+                  />
+                </div>
 
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-all duration-500" />
-                
-                <div className="absolute inset-0 flex items-end justify-center pb-6 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
-                  <span className="text-white text-sm font-medium px-4 py-2 bg-white/10 backdrop-blur-md rounded-full border border-white/20">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-all duration-500" />
+
+                <div className="absolute inset-0 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500">
+                  <div className="w-14 h-14 rounded-full glass-card-dark flex items-center justify-center mb-3 transform scale-50 group-hover:scale-100 transition-transform duration-500">
+                    <svg
+                      className="w-6 h-6 text-white"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={1.5}
+                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"
+                      />
+                    </svg>
+                  </div>
+                </div>
+
+                <div className="absolute inset-x-0 bottom-0 p-4 md:p-6 translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-500">
+                  <span className="text-white text-sm font-medium px-4 py-2 bg-white/10 backdrop-blur-md rounded-full border border-white/20 inline-block">
                     {img.label}
                   </span>
                 </div>
 
-                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <div className="w-12 h-12 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center">
-                    <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
-                    </svg>
-                  </div>
-                </div>
+                <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-white/10 group-hover:ring-white/20 transition-all duration-500" />
               </div>
             ))}
           </div>
@@ -109,15 +185,25 @@ export default function Gallery() {
 
       {activeImg && (
         <div
-          className="fixed inset-0 bg-black/95 flex items-center justify-center z-[100] p-4 animate-in fade-in duration-300"
+          className="fixed inset-0 bg-black/95 backdrop-blur-md flex items-center justify-center z-[100] p-4 animate-blur-in"
           onClick={closeLightbox}
         >
           <button
             className="absolute top-4 right-4 md:top-8 md:right-8 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white text-2xl transition-all duration-300 hover:scale-110"
             onClick={closeLightbox}
           >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            <svg
+              className="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M6 18L18 6M6 6l12 12"
+              />
             </svg>
           </button>
 
@@ -125,13 +211,21 @@ export default function Gallery() {
             className="absolute left-4 top-1/2 -translate-y-1/2 hidden md:flex w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 items-center justify-center text-white transition-all duration-300 hover:scale-110"
             onClick={(e) => {
               e.stopPropagation();
-              const currentIndex = galleryImages.findIndex(img => img.src === activeImg);
-              const prevIndex = currentIndex === 0 ? galleryImages.length - 1 : currentIndex - 1;
-              setActiveImg(galleryImages[prevIndex].src);
+              navigateImage("prev");
             }}
           >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            <svg
+              className="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M15 19l-7-7 7-7"
+              />
             </svg>
           </button>
 
@@ -139,26 +233,34 @@ export default function Gallery() {
             className="absolute right-4 top-1/2 -translate-y-1/2 hidden md:flex w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 items-center justify-center text-white transition-all duration-300 hover:scale-110"
             onClick={(e) => {
               e.stopPropagation();
-              const currentIndex = galleryImages.findIndex(img => img.src === activeImg);
-              const nextIndex = currentIndex === galleryImages.length - 1 ? 0 : currentIndex + 1;
-              setActiveImg(galleryImages[nextIndex].src);
+              navigateImage("next");
             }}
           >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            <svg
+              className="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M9 5l7 7-7 7"
+              />
             </svg>
           </button>
 
           <img
             src={activeImg}
             alt="Gallery"
-            className="max-w-[90vw] max-h-[85vh] rounded-2xl object-contain animate-in zoom-in-95 duration-300"
+            className="max-w-[90vw] max-h-[85vh] rounded-2xl object-contain animate-scale-in"
             onClick={(e) => e.stopPropagation()}
           />
 
           <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-2 text-white/60 text-sm">
-            <span className="w-2 h-2 bg-[#B91C1C] rounded-full"></span>
-            Click outside to close
+            <span className="w-2 h-2 bg-[#B91C1C] rounded-full animate-pulse" />
+            Press ESC or click outside to close
           </div>
         </div>
       )}
