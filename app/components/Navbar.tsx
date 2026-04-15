@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 
 const navLinks = [
-  { label: "Home", href: "#" },
+  { label: "Home", href: "/" },
   { label: "Services", href: "#services" },
   { label: "Gallery", href: "#gallery" },
   { label: "About", href: "#about" },
@@ -29,7 +29,7 @@ export default function Navbar() {
       <nav className="max-w-6xl mx-auto px-5 h-16 flex items-center justify-between">
 
         {/* Logo */}
-        <a href="#" className="flex items-center gap-2.5">
+        <a href="/" className="flex items-center gap-2.5">
           <span className="w-9 h-9 rounded-full bg-[#B91C1C] flex items-center justify-center text-white text-xs font-bold tracking-wide">
             PC
           </span>

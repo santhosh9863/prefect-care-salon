@@ -7,11 +7,11 @@ import Contact from "./components/Contact";
 
 export default function Home() {
   return (
-    <main className="w-full">
+    <main>
       <Hero />
       <Services />
-      <About />
       <Gallery />
+      <About />
       <Reviews />
       <Contact />
     </main>

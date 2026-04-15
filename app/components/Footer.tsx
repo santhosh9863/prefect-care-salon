@@ -41,7 +41,7 @@ export default function Footer() {
                 📸 Instagram
               </a>
               <a
-                href="https://wa.me/918041644448"
+                href="https://wa.me/919538111909"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium bg-green-600 text-white hover:bg-green-700 transition"
@@ -49,7 +49,7 @@ export default function Footer() {
                 💬 WhatsApp
               </a>
               <a
-                href="tel:08041644448"
+                href="tel:9538111909"
                 className="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium bg-red-600 text-white hover:bg-red-700 transition"
               >
                 📞 Call
@@ -94,14 +94,14 @@ export default function Footer() {
             </h4>
             <ul className="space-y-2.5 text-sm">
               <li>JP Nagar, Bangalore</li>
-              <li>08041644448</li>
+              <li>9538111909</li>
             </ul>
           </div>
 
         </div>
 
         {/* Divider + Copyright */}
-        <div className="mt-12 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs w-full">
+        <div className="mt-12 pt-6 border-t border-white/60 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs w-full">
           <p>&copy; 2026 Perfect Care Family Salon. All rights reserved.</p>
           <p className="text-gray-600">
             Crafted with care in Bangalore
