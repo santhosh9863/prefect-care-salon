@@ -2,18 +2,38 @@
 
 import { useState, useEffect } from "react";
 
-export default function Hero() {
-  const [isLoaded, setIsLoaded] = useState(false);
+const OPEN_HOUR = 10;
+const CLOSE_HOUR = 20;
+
+function getSalonStatus() {
+  const now = new Date();
+  const istTime = new Date(now.toLocaleString("en-US", { timeZone: "Asia/Kolkata" }));
+  const currentHour = istTime.getHours();
+  return currentHour >= OPEN_HOUR && currentHour < CLOSE_HOUR;
+}
+
+function SalonStatus() {
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => setIsLoaded(true), 100);
-    return () => clearTimeout(timer);
+    setIsOpen(getSalonStatus());
   }, []);
 
   return (
+    <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-full backdrop-blur-sm border ${isOpen ? "bg-green-500/20 border-green-500/30" : "bg-red-500/20 border-red-500/30"}`}>
+      <span className={`w-2 h-2 rounded-full ${isOpen ? "bg-green-500" : "bg-red-500"}`} />
+      <span className={`text-xs tracking-[0.25em] uppercase font-medium ${isOpen ? "text-green-400" : "text-red-400"}`}>
+        {isOpen ? "Open Now" : "Closed"}
+      </span>
+    </div>
+  );
+}
+
+export default function Hero() {
+  return (
     <section className="relative min-h-screen w-full overflow-hidden">
       <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/60 to-black/70 z-10" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/60 to-black/70" />
         <img
           src="https://images.unsplash.com/photo-1560066984-138dadb4c035?w=1920&q=80"
           alt="Perfect Care Family Salon Interior"
@@ -28,13 +48,8 @@ export default function Hero() {
       </div>
 
       <div className="relative z-30 flex flex-col items-center justify-center text-center text-white min-h-screen px-5 sm:px-8 py-24 sm:py-0">
-        <div className={`w-full max-w-4xl mx-auto space-y-8 transition-all duration-1000 ease-out ${isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20">
-            <span className="w-2 h-2 rounded-full bg-green-500" />
-            <span className="text-xs tracking-[0.25em] uppercase text-gray-300 font-medium">
-              Open Now
-            </span>
-          </div>
+        <div className="w-full max-w-4xl mx-auto space-y-8">
+          <SalonStatus />
 
           <div className="space-y-2">
             <p className="text-white/60 text-xs tracking-[0.4em] uppercase font-light">
