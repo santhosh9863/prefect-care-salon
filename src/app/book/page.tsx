@@ -20,6 +20,7 @@ export default function BookPage() {
   });
 
   const [selectedServices, setSelectedServices] = useState<string[]>([]);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const toggleService = (service: string) => {
     setSelectedServices(prev =>
@@ -37,6 +38,8 @@ export default function BookPage() {
       return;
     }
 
+    setIsSubmitting(true);
+
     const message = `Hi, I want to book an appointment.
 Name: ${formData.name}
 Phone: ${formData.phone}
@@ -44,8 +47,12 @@ Services: ${selectedServices.join(', ')}
 Date: ${formData.date}
 Time: ${formData.time}`;
 
-    const whatsappUrl = `https://wa.me/919538111909?text=${encodeURIComponent(message)}`;
-    window.open(whatsappUrl, '_blank');
+    const url = `https://wa.me/919538111909?text=${encodeURIComponent(message)}`;
+
+    setTimeout(() => {
+      window.open(url, '_blank');
+      window.location.href = '/';
+    }, 1500);
   };
 
   const handleChange = (
@@ -53,6 +60,17 @@ Time: ${formData.time}`;
   ) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+
+  if (isSubmitting) {
+    return (
+      <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50">
+        <div className="bg-white p-6 rounded-xl text-center max-w-sm">
+          <h2 className="text-lg font-semibold mb-2 text-gray-900">Redirecting to WhatsApp...</h2>
+          <p className="text-gray-600">Please complete your booking there</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-[#0b0f19] text-white px-4 py-16">
@@ -150,7 +168,8 @@ Time: ${formData.time}`;
 
           <button
             type="submit"
-            className="w-full bg-red-700 text-white py-3 rounded-full font-semibold"
+            disabled={isSubmitting}
+            className="w-full bg-red-700 text-white py-3 rounded-full font-semibold disabled:opacity-50"
           >
             Book via WhatsApp
           </button>
