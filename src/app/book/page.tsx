@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 
-const services = [
+const servicesList = [
   'Haircut',
   'Beard Trim',
   'Facial',
@@ -15,18 +15,32 @@ export default function BookPage() {
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
-    service: '',
     date: '',
     time: '',
   });
 
+  const [selectedServices, setSelectedServices] = useState<string[]>([]);
+
+  const toggleService = (service: string) => {
+    setSelectedServices(prev =>
+      prev.includes(service)
+        ? prev.filter(s => s !== service)
+        : [...prev, service]
+    );
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (selectedServices.length === 0) {
+      alert('Please select at least one service');
+      return;
+    }
 
     const message = `Hi, I want to book an appointment.
 Name: ${formData.name}
 Phone: ${formData.phone}
-Service: ${formData.service}
+Services: ${selectedServices.join(', ')}
 Date: ${formData.date}
 Time: ${formData.time}`;
 
@@ -83,25 +97,25 @@ Time: ${formData.time}`;
             />
           </div>
 
-          <div>
-            <label htmlFor="service" className="block mb-1 font-medium">
-              Service
-            </label>
-            <select
-              id="service"
-              name="service"
-              required
-              value={formData.service}
-              onChange={handleChange}
-              className="w-full border border-gray-300 rounded-lg p-3"
-            >
-              <option value="">Select a service</option>
-              {services.map((service) => (
-                <option key={service} value={service}>
+          <div className="space-y-3">
+            <label className="block font-medium">Services</label>
+
+            <div className="grid grid-cols-2 gap-3">
+              {servicesList.map(service => (
+                <label
+                  key={service}
+                  className="flex items-center gap-2 p-3 border border-white/20 rounded-lg cursor-pointer hover:bg-white/10"
+                >
+                  <input
+                    type="checkbox"
+                    checked={selectedServices.includes(service)}
+                    onChange={() => toggleService(service)}
+                    className="w-4 h-4 accent-red-700"
+                  />
                   {service}
-                </option>
+                </label>
               ))}
-            </select>
+            </div>
           </div>
 
           <div>
