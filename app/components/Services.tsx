@@ -130,7 +130,7 @@ function ServiceCard({
       onClick={handleClick}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className={`group relative glass-card rounded-2xl sm:rounded-3xl p-6 sm:p-8 cursor-pointer overflow-hidden transition-all duration-200 ease-out card-depth touch-feedback hover:-translate-y-1 hover:scale-[1.02] hover:shadow-xl ripple ${
+      className={`group relative glass-card rounded-2xl sm:rounded-3xl p-6 sm:p-8 cursor-pointer overflow-hidden transition-all duration-200 ease-out card-depth touch-feedback hover:-translate-y-1 hover:scale-[1.02] hover:shadow-xl active:scale-95 ripple ${
         isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
       }`}
     >
@@ -183,7 +183,7 @@ function ServiceCard({
             </svg>
             {service.duration}
           </span>
-          <span className="text-[#B91C1C] text-xs sm:text-sm font-medium flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-x-2 group-hover:translate-x-0">
+          <span className="text-[#B91C1C] text-xs sm:text-sm font-medium flex items-center gap-1">
             Learn more
             <svg
               className="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform group-hover:translate-x-1"
@@ -296,7 +296,7 @@ export default function Services() {
           onClick={closeModal}
         >
           <div
-            className={`bg-white rounded-2xl p-8 sm:p-10 max-w-[450px] w-[90%] sm:w-full shadow-2xl relative transform transition-all duration-300 ease-out ${
+            className={`bg-white rounded-2xl p-8 sm:p-10 max-w-[450px] w-[90%] sm:w-full shadow-2xl relative transform transition-all duration-300 ease-out max-h-[90vh] overflow-y-auto ${
               isOpen
                 ? "scale-100 opacity-100 translate-y-0"
                 : "scale-95 opacity-0 translate-y-4"
@@ -357,7 +357,7 @@ export default function Services() {
             </p>
 
             {serviceSlogans[activeService.name] && (
-              <p className="text-gray-500 text-sm text-center mb-2">
+              <p className="text-gray-500 text-xs text-center leading-tight mt-2 mb-2">
                 {serviceSlogans[activeService.name]}
               </p>
             )}
