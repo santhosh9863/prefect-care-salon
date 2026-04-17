@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Button from "@/app/ui/Button";
 
@@ -21,33 +21,24 @@ function WhatsAppButton() {
 }
 
 export default function Navbar() {
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const menuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 50);
+    const onScroll = () => setScrolled(window.scrollY > 10);
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   useEffect(() => {
-    if (menuOpen) document.body.style.overflow = "hidden";
+    if (isOpen) document.body.style.overflow = "hidden";
     else document.body.style.overflow = "";
     return () => { document.body.style.overflow = ""; };
-  }, [menuOpen]);
-
-  useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
-      if (menuRef.current && !menuRef.current.contains(e.target as Node)) setMenuOpen(false);
-    };
-    if (menuOpen) document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [menuOpen]);
+  }, [isOpen]);
 
   return (
     <>
-      <header className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${scrolled ? "bg-white/80 backdrop-blur-md shadow-sm" : "bg-transparent"}`} style={{ height: '60px' }}>
+      <header className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 bg-white/95 backdrop-blur-md shadow-sm`}>
         <nav className="max-w-7xl mx-auto px-4 h-full flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
             <span className="w-8 h-8 rounded-full flex items-center justify-center text-white text-xs font-bold bg-gradient-to-br from-[#B91C1C] to-[#991B1B]">PC</span>
@@ -56,7 +47,7 @@ export default function Navbar() {
           <ul className="hidden lg:flex items-center gap-6">
             {navLinks.map((link) => (
               <li key={link.label}>
-                <Link href={link.href} className={`text-sm font-medium hover:text-[#B91C1C] hover:opacity-80 transition-colors cursor-pointer ${scrolled ? "text-gray-600" : "text-white"}`}>{link.label}</Link>
+                <Link href={link.href} className="text-sm font-medium text-gray-600 hover:text-[#B91C1C] hover:opacity-80 transition-colors cursor-pointer">{link.label}</Link>
               </li>
             ))}
           </ul>
@@ -65,30 +56,32 @@ export default function Navbar() {
             <Button href="/book" variant="primary" size="sm">Book Now</Button>
           </div>
 
-          <button onClick={() => setMenuOpen(prev => !prev)} className="lg:hidden relative z-50 p-2 rounded-lg hover:bg-gray-100/20 transition-colors cursor-pointer" aria-label="Menu">
-            <svg className={`w-6 h-6 ${scrolled ? "text-gray-700" : "text-white"}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              {menuOpen ? <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /> : <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />}
+          <button onClick={() => setIsOpen(prev => !prev)} className="lg:hidden relative z-50 p-2 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer" aria-label="Menu">
+            <svg className="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              {isOpen ? <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /> : <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />}
             </svg>
           </button>
         </nav>
       </header>
 
-      {menuOpen && (
-        <div ref={menuRef} className="lg:hidden fixed top-[60px] left-2 right-2 bg-white shadow-lg z-30 rounded-xl overflow-hidden">
-          <ul className="py-2">
-            {navLinks.map((link) => (
-              <li key={link.label}>
-                <Link href={link.href} onClick={() => setMenuOpen(false)} className="block px-4 py-3 text-gray-700 font-medium hover:text-[#B91C1C] hover:bg-gray-50 transition-colors cursor-pointer">
-                  {link.label}
-                </Link>
-              </li>
-            ))}
-            <li className="border-t border-gray-100 mt-2 pt-2">
-              <Button href="/book" variant="primary" size="md" onClick={() => setMenuOpen(false)} fullWidth className="mx-3">
+      {isOpen && (
+        <div className="lg:hidden fixed inset-0 bg-white z-40 pt-20">
+          <div className="flex flex-col p-6">
+            <ul className="space-y-2">
+              {navLinks.map((link) => (
+                <li key={link.label}>
+                  <Link href={link.href} onClick={() => setIsOpen(false)} className="block px-4 py-3 text-gray-700 font-medium hover:text-[#B91C1C] hover:bg-gray-50 rounded-lg transition-colors cursor-pointer">
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+            <div className="mt-6 pt-6 border-t border-gray-100">
+              <Button href="/book" variant="primary" size="md" onClick={() => setIsOpen(false)} fullWidth>
                 Book Appointment
               </Button>
-            </li>
-          </ul>
+            </div>
+          </div>
         </div>
       )}
 
