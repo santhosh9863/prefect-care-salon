@@ -30,7 +30,7 @@
 }
 
 html {
-  scroll-behavior: auto;
+  scroll-behavior: smooth;
   -webkit-tap-highlight-color: transparent;
   scroll-top: 0 !important;
   -webkit-overflow-scrolling: touch;
