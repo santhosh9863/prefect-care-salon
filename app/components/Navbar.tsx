@@ -38,15 +38,15 @@ export default function Navbar() {
     <>
       <header className="fixed top-0 left-0 w-full z-50 bg-white shadow-sm">
         <nav className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2">
-            <span className="w-8 h-8 rounded-full flex items-center justify-center text-white text-xs font-bold bg-gradient-to-br from-[#B91C1C] to-[#991B1B]">PC</span>
-            <span className="font-bold text-black text-sm hidden sm:block">Perfect Care</span>
+          <Link href="/" className="flex items-center gap-3">
+            <span className="w-9 h-9 rounded-full flex items-center justify-center text-white text-xs font-bold bg-gradient-to-br from-[#B91C1C] to-[#991B1B] shadow-md">PC</span>
+            <span className="font-bold text-black text-base tracking-wide drop-shadow-sm">Perfect Care Salon</span>
           </Link>
 
           <ul className="hidden lg:flex items-center gap-6">
             {navLinks.map((link) => (
               <li key={link.label}>
-                <Link href={link.href} className="text-sm font-medium text-gray-600 hover:text-black transition-colors cursor-pointer">{link.label}</Link>
+                <Link href={link.href} className="text-sm font-medium text-gray-700 hover:text-black transition-colors cursor-pointer">{link.label}</Link>
               </li>
             ))}
           </ul>
@@ -56,29 +56,31 @@ export default function Navbar() {
           </div>
 
           <button onClick={() => setIsOpen(prev => !prev)} className="menu-toggle lg:hidden relative z-50 p-2 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer" aria-label="Menu">
-            <svg className="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-6 h-6 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               {isOpen ? <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /> : <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />}
             </svg>
           </button>
         </nav>
       </header>
 
-      {isOpen && (
-        <div className="mobile-menu absolute right-4 top-16 w-64 bg-white rounded-xl shadow-xl border border-gray-100 z-50">
-          <div className="flex flex-col p-4 gap-2">
-            {navLinks.map((link) => (
-              <Link key={link.label} href={link.href} onClick={() => setIsOpen(false)} className="text-gray-700 hover:text-black transition-colors cursor-pointer px-4 py-3 rounded-lg hover:bg-gray-50">
-                {link.label}
-              </Link>
-            ))}
-            <div className="pt-2 border-t border-gray-100 mt-2">
-              <Button href="/book" variant="primary" size="md" onClick={() => setIsOpen(false)} fullWidth>
-                Book Appointment
-              </Button>
-            </div>
+      <div 
+        className={`mobile-menu absolute right-4 top-16 w-64 bg-white rounded-xl shadow-xl border border-gray-100 z-50 transition-all duration-300 ease-out ${
+          isOpen ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 -translate-y-2 scale-95 pointer-events-none'
+        }`}
+      >
+        <div className="flex flex-col p-4 gap-2">
+          {navLinks.map((link) => (
+            <Link key={link.label} href={link.href} onClick={() => setIsOpen(false)} className="text-gray-700 hover:text-black transition-colors cursor-pointer px-4 py-3 rounded-lg hover:bg-gray-50">
+              {link.label}
+            </Link>
+          ))}
+          <div className="pt-2 border-t border-gray-100 mt-2">
+            <Button href="/book" variant="primary" size="md" onClick={() => setIsOpen(false)} fullWidth>
+              Book Appointment
+            </Button>
           </div>
         </div>
-      )}
+      </div>
 
       <div className="h-16" />
       <WhatsAppButton />
