@@ -22,32 +22,31 @@ function WhatsAppButton() {
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 10);
-    window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
+    const handleClickOutside = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (!target.closest('.mobile-menu') && !target.closest('.menu-toggle')) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener('click', handleClickOutside);
+    return () => document.removeEventListener('click', handleClickOutside);
   }, []);
-
-  useEffect(() => {
-    if (isOpen) document.body.style.overflow = "hidden";
-    else document.body.style.overflow = "";
-    return () => { document.body.style.overflow = ""; };
-  }, [isOpen]);
 
   return (
     <>
-      <header className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 bg-white/95 backdrop-blur-md shadow-sm`}>
-        <nav className="max-w-7xl mx-auto px-4 h-full flex items-center justify-between">
+      <header className="fixed top-0 left-0 w-full z-50 bg-white shadow-sm">
+        <nav className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
             <span className="w-8 h-8 rounded-full flex items-center justify-center text-white text-xs font-bold bg-gradient-to-br from-[#B91C1C] to-[#991B1B]">PC</span>
+            <span className="font-bold text-black text-sm hidden sm:block">Perfect Care</span>
           </Link>
 
           <ul className="hidden lg:flex items-center gap-6">
             {navLinks.map((link) => (
               <li key={link.label}>
-                <Link href={link.href} className="text-sm font-medium text-gray-600 hover:text-[#B91C1C] hover:opacity-80 transition-colors cursor-pointer">{link.label}</Link>
+                <Link href={link.href} className="text-sm font-medium text-gray-600 hover:text-black transition-colors cursor-pointer">{link.label}</Link>
               </li>
             ))}
           </ul>
@@ -56,7 +55,7 @@ export default function Navbar() {
             <Button href="/book" variant="primary" size="sm">Book Now</Button>
           </div>
 
-          <button onClick={() => setIsOpen(prev => !prev)} className="lg:hidden relative z-50 p-2 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer" aria-label="Menu">
+          <button onClick={() => setIsOpen(prev => !prev)} className="menu-toggle lg:hidden relative z-50 p-2 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer" aria-label="Menu">
             <svg className="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               {isOpen ? <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /> : <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />}
             </svg>
@@ -65,18 +64,14 @@ export default function Navbar() {
       </header>
 
       {isOpen && (
-        <div className="lg:hidden fixed inset-0 bg-white z-40 pt-20">
-          <div className="flex flex-col p-6">
-            <ul className="space-y-2">
-              {navLinks.map((link) => (
-                <li key={link.label}>
-                  <Link href={link.href} onClick={() => setIsOpen(false)} className="block px-4 py-3 text-gray-700 font-medium hover:text-[#B91C1C] hover:bg-gray-50 rounded-lg transition-colors cursor-pointer">
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-            <div className="mt-6 pt-6 border-t border-gray-100">
+        <div className="mobile-menu absolute right-4 top-16 w-64 bg-white rounded-xl shadow-xl border border-gray-100 z-50">
+          <div className="flex flex-col p-4 gap-2">
+            {navLinks.map((link) => (
+              <Link key={link.label} href={link.href} onClick={() => setIsOpen(false)} className="text-gray-700 hover:text-black transition-colors cursor-pointer px-4 py-3 rounded-lg hover:bg-gray-50">
+                {link.label}
+              </Link>
+            ))}
+            <div className="pt-2 border-t border-gray-100 mt-2">
               <Button href="/book" variant="primary" size="md" onClick={() => setIsOpen(false)} fullWidth>
                 Book Appointment
               </Button>
@@ -85,7 +80,7 @@ export default function Navbar() {
         </div>
       )}
 
-      <div className="h-[60px]" />
+      <div className="h-16" />
       <WhatsAppButton />
     </>
   );
