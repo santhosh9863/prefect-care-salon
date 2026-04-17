@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Button from "@/app/ui/Button";
 
 const OPEN_HOUR = 10;
 const CLOSE_HOUR = 20;
@@ -31,7 +32,7 @@ function SalonStatus() {
 
 export default function Hero() {
   return (
-    <section className="relative min-h-screen w-full overflow-hidden">
+    <section className="relative min-h-screen w-full overflow-hidden pt-[60px]">
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/60 to-black/70" />
         <img
@@ -48,14 +49,14 @@ export default function Hero() {
       </div>
 
       <div className="relative z-30 flex flex-col items-center justify-center text-center text-white min-h-screen px-5 sm:px-8 py-24 sm:py-0">
-        <div className="w-full max-w-4xl mx-auto space-y-8">
+        <div className="w-full max-w-4xl mx-auto space-y-10">
           <SalonStatus />
 
-          <div className="space-y-2">
+          <div className="space-y-4">
             <p className="text-white/60 text-xs tracking-[0.4em] uppercase font-light">
               Welcome to
             </p>
-            <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight font-[var(--font-playfair)] leading-[1.1]">
+            <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight font-[var(--font-playfair)] leading-[1.2]">
               <span className="block text-white drop-shadow-lg">PERFECT</span>
               <span className="block text-white drop-shadow-lg">
                 CARE
@@ -90,10 +91,7 @@ export default function Hero() {
           </p>
 
           <div className="pt-4">
-            <a
-              href="/book"
-              className="inline-flex items-center gap-3 px-10 py-4 bg-[#B91C1C] text-white font-semibold text-base rounded-full hover:bg-[#991B1B] transition-all duration-300 hover:shadow-xl hover:shadow-red-900/30 active:scale-95"
-            >
+            <Button href="/book" variant="primary" size="lg">
               Book Appointment
               <svg
                 className="w-5 h-5"
@@ -108,10 +106,10 @@ export default function Hero() {
                   d="M17 8l4 4m0 0l-4 4m4-4H3"
                 />
               </svg>
-            </a>
+            </Button>
           </div>
 
-          
+
         </div>
       </div>
 

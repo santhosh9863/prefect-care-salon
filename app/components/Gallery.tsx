@@ -135,7 +135,7 @@ export default function Gallery() {
                 onClick={() => openLightbox(img.src)}
                 className={`relative overflow-hidden rounded-xl sm:rounded-2xl cursor-pointer group touch-feedback ${
                   img.span || ""
-                } transition-all duration-700 ${
+                } transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
                   isVisible[i] ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
                 }`}
               >
@@ -145,7 +145,7 @@ export default function Gallery() {
                   <img
                     src={img.src}
                     alt={img.label}
-                    className="w-full h-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-110"
+                    className="w-full h-full object-cover transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-110 group-hover:brightness-110"
                     loading="lazy"
                   />
                 </div>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import Button from "@/app/ui/Button";
 
 const services = [
   {
@@ -109,7 +110,7 @@ function ServiceCard({
       onClick={onClick}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className={`group relative glass-card rounded-2xl sm:rounded-3xl p-6 sm:p-8 cursor-pointer overflow-hidden transition-all duration-500 ease-out card-depth touch-feedback ${
+      className={`group relative glass-card rounded-2xl sm:rounded-3xl p-6 sm:p-8 cursor-pointer overflow-hidden transition-all duration-300 ease-out card-depth touch-feedback hover:scale-[1.02] hover:shadow-xl ${
         isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
       }`}
     >
@@ -138,7 +139,7 @@ function ServiceCard({
           </div>
         </div>
 
-        <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-3 sm:mb-4 font-[var(--font-playfair)] group-hover:text-[#B91C1C] transition-colors duration-300">
+        <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-3 sm:mb-4 font-[var(--font-playfair)] group-hover:text-[#B91C1C] group-hover:opacity-80 transition-all duration-300 cursor-pointer">
           {service.name}
         </h3>
         <p className="text-gray-600 text-xs sm:text-sm leading-relaxed mb-5 sm:mb-6">
@@ -245,10 +246,7 @@ export default function Services() {
           </div>
 
           <div className="mt-12 sm:mt-16 text-center">
-            <a
-              href="/book"
-              className="touch-feedback inline-flex items-center gap-3 px-6 sm:px-8 py-3 sm:py-4 bg-[#B91C1C] text-white font-semibold text-sm sm:text-base rounded-full hover:bg-[#991B1B] transition-all duration-300 hover:shadow-xl hover:shadow-red-900/30 hover:scale-105 active:scale-100"
-            >
+            <Button href="/book" variant="primary" size="md" className="touch-feedback">
               Book Your Session
               <svg
                 className="w-4 h-4 sm:w-5 sm:h-5"
@@ -263,7 +261,7 @@ export default function Services() {
                   d="M17 8l4 4m0 0l-4 4m4-4H3"
                 />
               </svg>
-            </a>
+            </Button>
           </div>
         </div>
       </section>
@@ -272,13 +270,13 @@ export default function Services() {
         <div
           className={`fixed inset-0 flex items-center justify-center z-[var(--z-modal)] px-4 transition-all duration-300 ${
             isOpen
-              ? "bg-black/60 backdrop-blur-md opacity-100"
+              ? "bg-black/60 backdrop-blur-sm opacity-100"
               : "bg-black/0 opacity-0 pointer-events-none"
           }`}
           onClick={closeModal}
         >
           <div
-            className={`bg-white rounded-2xl p-6 sm:p-8 max-w-[450px] w-[90%] sm:w-full shadow-2xl relative transform transition-all duration-300 ${
+            className={`bg-white rounded-2xl p-8 sm:p-10 max-w-[450px] w-[90%] sm:w-full shadow-2xl relative transform transition-all duration-300 ease-out ${
               isOpen
                 ? "scale-100 opacity-100 translate-y-0"
                 : "scale-95 opacity-0 translate-y-4"
@@ -349,12 +347,9 @@ export default function Services() {
               Book Appointment
             </a>
 
-            <button
-              onClick={closeModal}
-              className="w-full py-2 text-gray-500 hover:text-gray-700 text-sm font-medium transition-colors"
-            >
+            <Button variant="ghost" size="md" onClick={closeModal} fullWidth>
               Close
-            </button>
+            </Button>
           </div>
         </div>
       )}

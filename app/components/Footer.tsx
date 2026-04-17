@@ -1,3 +1,7 @@
+"use client";
+
+import { useFadeIn, fadeInClass, fadeInTransition } from "@/app/ui/useFadeIn";
+
 const footerLinks = [
   { label: "Home", href: "/" },
   { label: "Services", href: "#services" },
@@ -17,14 +21,16 @@ const services = [
 ];
 
 export default function Footer() {
+  const { ref, isVisible } = useFadeIn({ threshold: 0.1 });
+
   return (
-    <footer className="relative bg-gray-900 text-gray-400 pt-20 pb-8 px-4 overflow-hidden">
+    <footer className="relative bg-gray-900 text-gray-400 py-20 sm:py-24 md:py-28 px-4 sm:px-6 overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-0 left-1/4 w-96 h-96 bg-[#B91C1C]/5 rounded-full blur-3xl" />
         <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-[#B91C1C]/3 rounded-full blur-3xl" />
       </div>
 
-      <div className="max-w-7xl mx-auto relative">
+      <div ref={ref} className={`max-w-7xl mx-auto relative ${fadeInTransition} ${fadeInClass(isVisible)}`}>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12 mb-16">
           <div className="sm:col-span-2 lg:col-span-1">
             <div className="flex items-center gap-3 mb-6">
@@ -144,7 +150,7 @@ export default function Footer() {
                 <li key={service}>
                   <a
                     href="#services"
-                    className="text-sm hover:text-white transition-colors duration-200 inline-flex items-center gap-2 group"
+                    className="text-sm hover:text-white hover:opacity-80 transition-all duration-200 inline-flex items-center gap-2 group cursor-pointer"
                   >
                     <span className="w-1 h-1 bg-[#B91C1C] rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
                     {service}
