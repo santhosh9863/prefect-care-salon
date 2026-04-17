@@ -348,7 +348,7 @@ export default function Services() {
             </p>
 
             <a
-              href="/book"
+              href={`/book?service=${encodeURIComponent(activeService.name)}`}
               onClick={() => {
                 setIsOpen(false);
                 setActiveService(null);

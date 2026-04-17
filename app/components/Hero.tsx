@@ -107,6 +107,7 @@ export default function Hero() {
                 />
               </svg>
             </Button>
+            <p className="text-gray-500 text-sm mt-3">Skip the wait. Book now.</p>
           </div>
 
 

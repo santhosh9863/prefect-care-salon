@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 
 const servicesList = [
   { name: "Haircut & Styling", price: "₹300" },
@@ -13,6 +14,7 @@ const servicesList = [
 ];
 
 export default function BookPage() {
+  const searchParams = useSearchParams();
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
@@ -22,6 +24,18 @@ export default function BookPage() {
   const [selectedServices, setSelectedServices] = useState<string[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+
+  useEffect(() => {
+    const serviceParam = searchParams.get("service");
+    if (serviceParam && selectedServices.length === 0) {
+      const matchedService = servicesList.find(
+        (s) => s.name.toLowerCase() === serviceParam.toLowerCase()
+      );
+      if (matchedService) {
+        setSelectedServices([matchedService.name]);
+      }
+    }
+  }, [searchParams, selectedServices]);
 
   const toggleService = (service: string) => {
     setSelectedServices((prev) =>
