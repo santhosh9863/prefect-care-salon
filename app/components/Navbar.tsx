@@ -67,25 +67,25 @@ export default function Navbar() {
         className={`mobile-menu absolute right-4 top-16 w-64 bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl border border-gray-200/50 z-50 transition-all duration-300 ease-out ${isOpen ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 -translate-y-2 scale-95 pointer-events-none'
           }`}
       >
-<div className="flex flex-col p-5 gap-1">
+        <div className="flex flex-col p-5 gap-1">
           {navLinks.map((link, i) => (
-              <Link 
-                key={link.label} 
-                href={link.href} 
-                onClick={(e) => {
-                  const rect = e.currentTarget.getBoundingClientRect();
-                  const x = ((e.clientX - rect.left) / rect.width) * 100;
-                  const y = ((e.clientY - rect.top) / rect.height) * 100;
-                  e.currentTarget.style.setProperty("--rx", `${x}%`);
-                  e.currentTarget.style.setProperty("--ry", `${y}%`);
-                  setIsOpen(false);
-                }} 
-                className={`text-gray-700 hover:text-black hover:translate-x-1 transition-all duration-200 ease-out cursor-pointer px-4 py-3 rounded-xl hover:bg-gray-50/80 active:scale-90 active:shadow-inner ripple ${isOpen ? 'animate-fade-in-up' : ''}`}
-                style={{ animationDelay: `${i * 0.08}s` }}
-              >
-                {link.label}
-              </Link>
-            ))}
+            <Link
+              key={link.label}
+              href={link.href}
+              onClick={(e) => {
+                const rect = e.currentTarget.getBoundingClientRect();
+                const x = ((e.clientX - rect.left) / rect.width) * 100;
+                const y = ((e.clientY - rect.top) / rect.height) * 100;
+                e.currentTarget.style.setProperty("--rx", `${x}%`);
+                e.currentTarget.style.setProperty("--ry", `${y}%`);
+                setIsOpen(false);
+              }}
+              className={`text-gray-700 hover:text-black hover:translate-x-1 transition-all duration-200 ease-out cursor-pointer px-4 py-3 rounded-xl hover:bg-gray-50/80 active:scale-90 active:shadow-inner ripple ${isOpen ? 'animate-fade-in-up' : ''}`}
+              style={{ animationDelay: `${i * 0.08}s` }}
+            >
+              {link.label}
+            </Link>
+          ))}
           <div className="pt-3 border-t border-gray-100 mt-3">
             <Button href="/book" variant="primary" size="md" onClick={() => setIsOpen(false)} fullWidth className="shadow-md hover:shadow-lg active:scale-90 active:shadow-inner transition-all duration-200">
               Book Appointment
@@ -93,7 +93,6 @@ export default function Navbar() {
           </div>
         </div>
       </div>
-
       <WhatsAppButton />
     </>
   );
