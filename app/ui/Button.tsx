@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ReactNode } from "react";
+import { ReactNode, MouseEvent } from "react";
 
 type ButtonVariant = "primary" | "outline" | "ghost";
 type ButtonSize = "sm" | "md" | "lg";
@@ -19,7 +19,7 @@ interface ButtonProps {
 }
 
 const baseStyles =
-  "inline-flex items-center justify-center gap-2 font-semibold rounded-full transition-all duration-300 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed";
+  "inline-flex items-center justify-center gap-2 font-semibold rounded-full transition-all duration-300 active:scale-90 active:shadow-inner disabled:opacity-50 disabled:cursor-not-allowed";
 
 const variantStyles: Record<ButtonVariant, string> = {
   primary:
@@ -57,16 +57,26 @@ export default function Button({
     .filter(Boolean)
     .join(" ");
 
+  const handleClick = (e: MouseEvent<HTMLButtonElement | HTMLAnchorElement>) => {
+    const target = e.currentTarget;
+    const rect = target.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
+    target.style.setProperty("--rx", `${x}%`);
+    target.style.setProperty("--ry", `${y}%`);
+    onClick?.();
+  };
+
   if (href) {
     return (
-      <Link href={href} className={classes}>
+      <Link href={href} className={`${classes} ripple`} onClick={handleClick}>
         {children}
       </Link>
     );
   }
 
   return (
-    <button type={type} onClick={onClick} disabled={disabled} className={classes}>
+    <button type={type} onClick={handleClick} disabled={disabled} className={`${classes} ripple`}>
       {children}
     </button>
   );

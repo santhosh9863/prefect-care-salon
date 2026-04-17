@@ -46,7 +46,7 @@ export default function Navbar() {
           <ul className="hidden lg:flex items-center gap-6">
             {navLinks.map((link) => (
               <li key={link.label}>
-                <Link href={link.href} className="text-sm font-medium text-gray-700 hover:text-black transition-colors cursor-pointer">{link.label}</Link>
+                <Link href={link.href} className="text-sm font-medium text-gray-700 hover:text-black transition-colors cursor-pointer ripple">{link.label}</Link>
               </li>
             ))}
           </ul>
@@ -55,7 +55,7 @@ export default function Navbar() {
             <Button href="/book" variant="primary" size="sm">Book Now</Button>
           </div>
 
-          <button onClick={() => setIsOpen(prev => !prev)} className="menu-toggle lg:hidden relative z-50 p-2 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer" aria-label="Menu">
+          <button onClick={() => setIsOpen(prev => !prev)} className="menu-toggle lg:hidden relative z-50 p-2 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer ripple" aria-label="Menu">
             <svg className="w-6 h-6 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               {isOpen ? <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /> : <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />}
             </svg>
@@ -67,14 +67,27 @@ export default function Navbar() {
         className={`mobile-menu absolute right-4 top-16 w-64 bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl border border-gray-200/50 z-50 transition-all duration-300 ease-out ${isOpen ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 -translate-y-2 scale-95 pointer-events-none'
           }`}
       >
-        <div className="flex flex-col p-5 gap-1">
-          {navLinks.map((link) => (
-            <Link key={link.label} href={link.href} onClick={() => setIsOpen(false)} className="text-gray-700 hover:text-black hover:translate-x-1 transition-all duration-200 ease-out cursor-pointer px-4 py-3 rounded-xl hover:bg-gray-50/80 active:scale-95">
-              {link.label}
-            </Link>
-          ))}
+<div className="flex flex-col p-5 gap-1">
+          {navLinks.map((link, i) => (
+              <Link 
+                key={link.label} 
+                href={link.href} 
+                onClick={(e) => {
+                  const rect = e.currentTarget.getBoundingClientRect();
+                  const x = ((e.clientX - rect.left) / rect.width) * 100;
+                  const y = ((e.clientY - rect.top) / rect.height) * 100;
+                  e.currentTarget.style.setProperty("--rx", `${x}%`);
+                  e.currentTarget.style.setProperty("--ry", `${y}%`);
+                  setIsOpen(false);
+                }} 
+                className={`text-gray-700 hover:text-black hover:translate-x-1 transition-all duration-200 ease-out cursor-pointer px-4 py-3 rounded-xl hover:bg-gray-50/80 active:scale-90 active:shadow-inner ripple ${isOpen ? 'animate-fade-in-up' : ''}`}
+                style={{ animationDelay: `${i * 0.08}s` }}
+              >
+                {link.label}
+              </Link>
+            ))}
           <div className="pt-3 border-t border-gray-100 mt-3">
-            <Button href="/book" variant="primary" size="md" onClick={() => setIsOpen(false)} fullWidth className="shadow-md hover:shadow-lg active:scale-95 transition-all duration-200">
+            <Button href="/book" variant="primary" size="md" onClick={() => setIsOpen(false)} fullWidth className="shadow-md hover:shadow-lg active:scale-90 active:shadow-inner transition-all duration-200">
               Book Appointment
             </Button>
           </div>

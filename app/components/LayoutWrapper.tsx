@@ -34,7 +34,7 @@ function FloatingWhatsApp() {
         href="https://wa.me/919538111909?text=Hi%20I%20want%20to%20book%20an%20appointment%20at%20Perfect%20Care%20Family%20Salon"
         target="_blank"
         rel="noopener noreferrer"
-        className="relative flex items-center justify-center w-14 h-14 rounded-full bg-gradient-to-br from-green-400 to-green-600 text-white shadow-lg shadow-green-900/30 border-2 border-white transition-all duration-300 hover:scale-105 active:scale-95"
+        className="relative flex items-center justify-center w-14 h-14 rounded-full bg-gradient-to-br from-green-400 to-green-600 text-white shadow-lg shadow-green-900/30 border-2 border-white transition-all duration-300 hover:scale-105 active:scale-90 active:shadow-inner"
         aria-label="Chat on WhatsApp"
       >
         <svg

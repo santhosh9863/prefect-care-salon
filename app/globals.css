@@ -33,6 +33,7 @@ html {
   scroll-behavior: auto;
   -webkit-tap-highlight-color: transparent;
   scroll-top: 0 !important;
+  -webkit-overflow-scrolling: touch;
 }
 
 body {
@@ -580,4 +581,29 @@ select {
 
 .mobile-safe-bottom {
   padding-bottom: env(safe-area-inset-bottom, 0);
+}
+
+.ripple {
+  position: relative;
+  overflow: hidden;
+}
+
+.ripple::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at var(--rx, 50%) var(--ry, 50%), rgba(255,255,255,0.3) 0%, transparent 70%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.ripple:active::after {
+  opacity: 1;
+  animation: ripple-expand 0.4s ease-out;
+}
+
+@keyframes ripple-expand {
+  0% { transform: scale(0); opacity: 1; }
+  100% { transform: scale(2.5); opacity: 0; }
 }

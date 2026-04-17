@@ -290,7 +290,7 @@ Total Services: ${selectedServices.length}`;
             <button
               type="submit"
               disabled={isSubmitting || selectedServices.length === 0}
-              className="w-full bg-[#B91C1C] text-white py-4 rounded-xl font-semibold hover:bg-[#991B1B] disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 flex items-center justify-center gap-3 shadow-lg shadow-[#B91C1C]/30 hover:shadow-xl hover:shadow-[#B91C1C]/40 active:scale-[0.98] sweep-effect"
+              className="w-full bg-[#B91C1C] text-white py-4 rounded-xl font-semibold hover:bg-[#991B1B] disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 flex items-center justify-center gap-3 shadow-lg shadow-[#B91C1C]/30 hover:shadow-xl hover:shadow-[#B91C1C]/40 active:scale-90 active:shadow-inner sweep-effect"
             >
               {isSubmitting ? (
                 <>

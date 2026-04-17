@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, MouseEvent } from "react";
 import Button from "@/app/ui/Button";
 
 const services = [
@@ -104,13 +104,24 @@ function ServiceCard({
     return () => observer.disconnect();
   }, [index]);
 
+  const handleClick = (e: MouseEvent<HTMLDivElement>) => {
+    const rect = ref.current?.getBoundingClientRect();
+    if (rect) {
+      const x = ((e.clientX - rect.left) / rect.width) * 100;
+      const y = ((e.clientY - rect.top) / rect.height) * 100;
+      ref.current?.style.setProperty("--rx", `${x}%`);
+      ref.current?.style.setProperty("--ry", `${y}%`);
+    }
+    onClick();
+  };
+
   return (
     <div
       ref={ref}
-      onClick={onClick}
+      onClick={handleClick}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className={`group relative glass-card rounded-2xl sm:rounded-3xl p-6 sm:p-8 cursor-pointer overflow-hidden transition-all duration-300 ease-out card-depth touch-feedback hover:scale-[1.02] hover:shadow-xl ${
+      className={`group relative glass-card rounded-2xl sm:rounded-3xl p-6 sm:p-8 cursor-pointer overflow-hidden transition-all duration-300 ease-out card-depth touch-feedback hover:scale-[1.02] hover:shadow-xl ripple ${
         isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
       }`}
     >
@@ -342,7 +353,7 @@ export default function Services() {
                 setIsOpen(false);
                 setActiveService(null);
               }}
-              className="block w-full bg-[#B91C1C] text-white py-3 rounded-full font-semibold text-center hover:bg-[#991B1B] transition-all duration-300 mb-3 active:scale-95"
+              className="block w-full bg-[#B91C1C] text-white py-3 rounded-full font-semibold text-center hover:bg-[#991B1B] transition-all duration-300 mb-3 active:scale-90 active:shadow-inner"
             >
               Book Appointment
             </a>
