@@ -72,6 +72,15 @@ const services = [
   },
 ];
 
+const serviceSlogans: Record<string, string> = {
+  "Haircut & Styling": "Skip the wait. Get styled faster.",
+  "Beard Sculpting": "Sharp look, zero waiting.",
+  "Signature Facial": "Glow faster with priority booking.",
+  "Hair Coloring": "Book ahead for a smooth session.",
+  "Royal Head Massage": "Relax sooner — reserve your slot.",
+  "Premium Waxing": "Smooth skin, no waiting line.",
+};
+
 type Service = (typeof services)[number];
 
 function ServiceCard({
@@ -346,6 +355,12 @@ export default function Services() {
             <p className="text-gray-600 text-sm leading-relaxed mb-6 text-center">
               {activeService.desc}
             </p>
+
+            {serviceSlogans[activeService.name] && (
+              <p className="text-gray-500 text-sm text-center mb-2">
+                {serviceSlogans[activeService.name]}
+              </p>
+            )}
 
             <a
               href={`/book?service=${encodeURIComponent(activeService.name)}`}
