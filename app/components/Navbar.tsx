@@ -36,7 +36,7 @@ export default function Navbar() {
 
   return (
     <>
-      <header className="fixed top-0 left-0 w-full z-50 bg-white shadow-sm">
+      <header className="relative top-0 left-0 w-full z-50 bg-white shadow-sm">
         <nav className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-3">
             <span className="w-9 h-9 rounded-full flex items-center justify-center text-white text-xs font-bold bg-gradient-to-br from-[#B91C1C] to-[#991B1B] shadow-md">PC</span>
@@ -63,10 +63,9 @@ export default function Navbar() {
         </nav>
       </header>
 
-      <div 
-        className={`mobile-menu absolute right-4 top-16 w-64 bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl border border-gray-200/50 z-50 transition-all duration-300 ease-out ${
-          isOpen ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 -translate-y-2 scale-95 pointer-events-none'
-        }`}
+      <div
+        className={`mobile-menu absolute right-4 top-16 w-64 bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl border border-gray-200/50 z-50 transition-all duration-300 ease-out ${isOpen ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 -translate-y-2 scale-95 pointer-events-none'
+          }`}
       >
         <div className="flex flex-col p-5 gap-1">
           {navLinks.map((link) => (
@@ -82,7 +81,6 @@ export default function Navbar() {
         </div>
       </div>
 
-      <div className="h-16" />
       <WhatsAppButton />
     </>
   );
