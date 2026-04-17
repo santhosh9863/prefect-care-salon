@@ -46,7 +46,7 @@ export default function Navbar() {
           <ul className="hidden lg:flex items-center gap-6">
             {navLinks.map((link) => (
               <li key={link.label}>
-                <Link href={link.href} className="text-sm font-medium text-gray-700 hover:text-black transition-colors cursor-pointer ripple">{link.label}</Link>
+                <Link href={link.href} className="text-sm font-medium text-gray-700 hover:text-black transition-all duration-200 ease-out cursor-pointer ripple">{link.label}</Link>
               </li>
             ))}
           </ul>

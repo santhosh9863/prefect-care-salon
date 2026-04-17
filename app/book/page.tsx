@@ -203,7 +203,7 @@ Total Services: ${selectedServices.length}`;
                 value={formData.name}
                 onChange={handleChange}
                 placeholder="Enter your name"
-                className="w-full px-4 py-4 rounded-xl border border-gray-200 focus:border-[#B91C1C] focus:ring-2 focus:ring-[#B91C1C]/20 outline-none transition-all bg-white/80"
+                className="w-full px-4 py-4 rounded-xl border border-gray-200 focus:border-[#B91C1C] focus:ring-2 focus:ring-[#B91C1C]/20 outline-none transition-all duration-200 ease-out bg-white/80 hover:border-gray-300"
               />
             </div>
 
@@ -222,7 +222,7 @@ Total Services: ${selectedServices.length}`;
                 value={formData.phone}
                 onChange={handleChange}
                 placeholder="+91 95381 11909"
-                className="w-full px-4 py-4 rounded-xl border border-gray-200 focus:border-[#B91C1C] focus:ring-2 focus:ring-[#B91C1C]/20 outline-none transition-all bg-white/80"
+                className="w-full px-4 py-4 rounded-xl border border-gray-200 focus:border-[#B91C1C] focus:ring-2 focus:ring-[#B91C1C]/20 outline-none transition-all duration-200 ease-out bg-white/80 hover:border-gray-300"
               />
             </div>
 
@@ -279,7 +279,7 @@ Total Services: ${selectedServices.length}`;
                   required
                   value={formData.date}
                   onChange={handleChange}
-                  className="w-full px-4 py-4 rounded-xl border border-gray-200 focus:border-[#B91C1C] focus:ring-2 focus:ring-[#B91C1C]/20 outline-none transition-all bg-white/80"
+                  className="w-full px-4 py-4 rounded-xl border border-gray-200 focus:border-[#B91C1C] focus:ring-2 focus:ring-[#B91C1C]/20 outline-none transition-all duration-200 ease-out bg-white/80 hover:border-gray-300"
                 />
               </div>
               <div>
@@ -296,7 +296,7 @@ Total Services: ${selectedServices.length}`;
                   required
                   value={formData.time}
                   onChange={handleChange}
-                  className="w-full px-4 py-4 rounded-xl border border-gray-200 focus:border-[#B91C1C] focus:ring-2 focus:ring-[#B91C1C]/20 outline-none transition-all bg-white/80"
+                  className="w-full px-4 py-4 rounded-xl border border-gray-200 focus:border-[#B91C1C] focus:ring-2 focus:ring-[#B91C1C]/20 outline-none transition-all duration-200 ease-out bg-white/80 hover:border-gray-300"
                 />
               </div>
             </div>

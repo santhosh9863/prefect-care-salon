@@ -23,11 +23,11 @@ const baseStyles =
 
 const variantStyles: Record<ButtonVariant, string> = {
   primary:
-    "bg-[#B91C1C] text-white hover:bg-[#991B1B] hover:shadow-xl hover:shadow-red-900/30 hover:scale-105",
+    "bg-[#B91C1C] text-white hover:bg-[#991B1B] hover:brightness-110 hover:shadow-xl hover:shadow-red-900/30 hover:scale-105",
   outline:
-    "border-2 border-[#B91C1C] text-[#B91C1C] bg-transparent hover:bg-[#B91C1C]/5 hover:scale-105",
+    "border-2 border-[#B91C1C] text-[#B91C1C] bg-transparent hover:bg-[#B91C1C]/5 hover:brightness-110 hover:scale-105",
   ghost:
-    "text-gray-600 hover:text-gray-900 hover:bg-gray-100 hover:scale-105",
+    "text-gray-600 hover:text-gray-900 hover:bg-gray-100 hover:brightness-110 hover:scale-105",
 };
 
 const sizeStyles: Record<ButtonSize, string> = {

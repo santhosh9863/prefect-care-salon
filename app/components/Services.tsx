@@ -130,7 +130,7 @@ function ServiceCard({
       onClick={handleClick}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className={`group relative glass-card rounded-2xl sm:rounded-3xl p-6 sm:p-8 cursor-pointer overflow-hidden transition-all duration-300 ease-out card-depth touch-feedback hover:scale-[1.02] hover:shadow-xl ripple ${
+      className={`group relative glass-card rounded-2xl sm:rounded-3xl p-6 sm:p-8 cursor-pointer overflow-hidden transition-all duration-200 ease-out card-depth touch-feedback hover:-translate-y-1 hover:scale-[1.02] hover:shadow-xl ripple ${
         isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
       }`}
     >
