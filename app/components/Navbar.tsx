@@ -65,8 +65,8 @@ export default function Navbar() {
             <Button href="/book" variant="primary" size="sm">Book Now</Button>
           </div>
 
-          <button onClick={() => setMenuOpen(!menuOpen)} className="lg:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors" aria-label="Menu">
-            <svg className={`w-5 h-5 ${scrolled ? "text-gray-700" : "text-white"}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <button onClick={() => setMenuOpen(prev => !prev)} className="lg:hidden relative z-50 p-2 rounded-lg hover:bg-gray-100/20 transition-colors cursor-pointer" aria-label="Menu">
+            <svg className={`w-6 h-6 ${scrolled ? "text-gray-700" : "text-white"}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
               {menuOpen ? <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /> : <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />}
             </svg>
           </button>
@@ -74,7 +74,7 @@ export default function Navbar() {
       </header>
 
       {menuOpen && (
-        <div ref={menuRef} className="lg:hidden fixed top-[60px] left-2 right-2 bg-white shadow-lg z-40 rounded-xl overflow-hidden">
+        <div ref={menuRef} className="lg:hidden fixed top-[60px] left-2 right-2 bg-white shadow-lg z-30 rounded-xl overflow-hidden">
           <ul className="py-2">
             {navLinks.map((link) => (
               <li key={link.label}>
