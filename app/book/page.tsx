@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 
@@ -13,7 +13,7 @@ const servicesList = [
   { name: "Premium Waxing", price: "₹500" },
 ];
 
-export default function BookPage() {
+function BookPage() {
   const searchParams = useSearchParams();
   const [formData, setFormData] = useState({
     name: "",
@@ -356,5 +356,13 @@ Total Services: ${selectedServices.length}`;
         </p>
       </div>
     </div>
+  );
+}
+
+export default function Page() {
+  return (
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
+      <BookPage />
+    </Suspense>
   );
 }
