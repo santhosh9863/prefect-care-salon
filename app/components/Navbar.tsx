@@ -1,8 +1,7 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
 
 const navLinks = [
   { label: "Home", href: "/" },
@@ -21,33 +20,21 @@ function WhatsAppButton() {
 }
 
 export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
-  const menuRef = useRef<HTMLDivElement>(null);
-
-useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
-      const target = e.target as HTMLElement;
-      if (menuRef.current && !menuRef.current.contains(target as Node)) {
-        setIsOpen(false);
-      }
-    };
-    document.addEventListener('click', handleClickOutside);
-    return () => document.removeEventListener('click', handleClickOutside);
-  }, []);
+  const [open, setOpen] = useState(false);
 
   return (
     <>
-      <header className="fixed top-0 left-0 w-full z-50 bg-white/70 backdrop-blur-md border-b border-[#7F1635]/10">
-        <nav className="max-w-6xl mx-auto px-4 py-2 flex items-center justify-between">
+      <nav className="fixed top-0 left-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-gray-200 h-14 flex items-center">
+        <div className="max-w-6xl mx-auto px-4 flex justify-between items-center w-full">
           <Link href="/" className="flex items-center gap-3">
             <span className="w-8 h-8 rounded-full flex items-center justify-center text-white text-xs font-bold bg-[#7F1635]">PC</span>
-            <span className="text-[#7F1635] font-semibold text-sm tracking-wide">PERFECT CARE</span>
+            <span className="text-[#7F1635] font-semibold">PERFECT CARE</span>
           </Link>
 
           <ul className="hidden lg:flex items-center gap-6">
             {navLinks.map((link) => (
               <li key={link.label}>
-                <Link href={link.href} className="text-gray-600 hover:text-[#7F1635] transition-colors text-sm font-medium">{link.label}</Link>
+                <Link href={link.href} className="text-gray-700 hover:text-[#7F1635] transition-colors duration-300 text-sm font-medium">{link.label}</Link>
               </li>
             ))}
           </ul>
@@ -58,43 +45,35 @@ useEffect(() => {
             </Link>
           </div>
 
-          <button onClick={() => setIsOpen(prev => !prev)} className="menu-toggle lg:hidden relative z-50 p-2" aria-label="Menu">
-            <svg className="w-6 h-6 text-[#7F1635]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              {isOpen ? <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /> : <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />}
-            </svg>
-          </button>
-        </nav>
-      </header>
+          <div className="relative lg:hidden">
+            <button onClick={() => setOpen(!open)} className="p-2" aria-label="Menu">
+              <svg className="w-6 h-6 text-[#7F1635]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                {open ? <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /> : <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />}
+              </svg>
+            </button>
 
-      <div ref={menuRef} className="relative">
-        <AnimatePresence>
-          {isOpen && (
-            <motion.div
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.2 }}
-              className="absolute top-full right-4 mt-2 w-48 rounded-xl bg-white shadow-lg border border-[#7F1635]/10 p-4"
-            >
-              <div className="flex flex-col gap-3">
-                {navLinks.map((link) => (
-                  <Link
-                    key={link.label}
-                    href={link.href}
-                    onClick={() => setIsOpen(false)}
-                    className="text-gray-700 text-sm hover:text-[#7F1635] transition-colors"
-                  >
-                    {link.label}
+            {open && (
+              <div className="absolute right-0 top-full mt-2 w-52 max-w-[90vw] bg-white rounded-xl shadow-xl p-4 z-50">
+                <div className="flex flex-col gap-3 text-gray-700 text-sm">
+                  {navLinks.map((link) => (
+                    <Link
+                      key={link.label}
+                      href={link.href}
+                      onClick={() => setOpen(false)}
+                      className="block py-2 hover:text-[#7F1635]"
+                    >
+                      {link.label}
+                    </Link>
+                  ))}
+                  <Link href="/book" onClick={() => setOpen(false)} className="mt-2 pt-3 border-t border-gray-100 text-center px-4 py-2 rounded-full bg-[#7F1635] text-white text-sm font-medium">
+                    Book Now
                   </Link>
-                ))}
-                <Link href="/book" onClick={() => setIsOpen(false)} className="mt-2 pt-3 border-t border-gray-100 text-center px-4 py-2 rounded-full bg-[#7F1635] text-white text-sm font-medium">
-                  Book Appointment
-                </Link>
+                </div>
               </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
+            )}
+          </div>
+        </div>
+      </nav>
       <WhatsAppButton />
     </>
   );
