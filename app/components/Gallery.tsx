@@ -107,76 +107,52 @@ export default function Gallery() {
       <section
         ref={sectionRef}
         id="gallery"
-        className="relative py-20 sm:py-24 md:py-28 px-4 sm:px-6 bg-white overflow-hidden"
+        className="relative py-24 px-4 overflow-hidden"
       >
-        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent" />
-        <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent" />
+        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+        <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
 
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12 sm:mb-16 md:mb-20">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#B91C1C]/8 text-[#B91C1C] text-xs font-semibold tracking-[0.2em] uppercase mb-6">
-              <span className="w-1.5 h-1.5 bg-[#B91C1C] rounded-full" />
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#d4af37]/10 text-[#d4af37] text-xs font-semibold tracking-[0.2em] uppercase mb-6">
+              <span className="w-1.5 h-1.5 bg-[#d4af37] rounded-full" />
               Our Work
             </div>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 tracking-wide font-[var(--font-playfair)] mb-4 sm:mb-6">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-wide font-[var(--font-playfair)] mb-4 sm:mb-6">
               Gallery
             </h2>
-            <p className="text-gray-500 text-sm sm:text-base md:text-lg max-w-2xl mx-auto leading-relaxed px-4">
+            <p className="text-gray-400 text-sm sm:text-base md:text-lg max-w-2xl mx-auto leading-relaxed px-4">
               A glimpse into our world of beauty and precision. Every detail,
               every transformation, captured for you.
             </p>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4 md:gap-6 auto-rows-[160px] sm:auto-rows-[200px] md:auto-rows-[280px] lg:auto-rows-[300px]">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 sm:gap-4">
             {galleryImages.map((img, i) => (
               <div
                 key={i}
                 data-index={i}
                 onClick={() => openLightbox(img.src)}
-                className={`relative overflow-hidden rounded-xl sm:rounded-2xl cursor-pointer group touch-feedback ${
+                className={`relative overflow-hidden rounded-xl group cursor-pointer ${
                   img.span || ""
-                } transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                } transition-all duration-500 ${
                   isVisible[i] ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
                 }`}
               >
-                <div
-                  className={`w-full h-full ${img.aspect || "aspect-square"}`}
-                >
-                  <img
-                    src={img.src}
-                    alt={img.label}
-                    className="w-full h-full object-cover transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-110 group-hover:brightness-110"
-                    loading="lazy"
-                  />
-                </div>
+                <img
+                  src={img.src}
+                  alt={img.label}
+                  className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+                  loading="lazy"
+                />
 
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/0 opacity-0 group-hover:opacity-100 transition-all duration-500" />
+                <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition duration-500" />
 
-                <div className="absolute inset-0 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500">
-                  <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full glass-card-dark flex items-center justify-center mb-2 sm:mb-3 transform scale-50 group-hover:scale-100 transition-transform duration-500">
-                    <svg
-                      className="w-5 h-5 sm:w-6 sm:h-6 text-white"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={1.5}
-                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"
-                      />
-                    </svg>
-                  </div>
-                </div>
-
-                <div className="absolute inset-x-0 bottom-0 p-3 sm:p-4 md:p-6 translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-500">
-                  <span className="text-white text-xs sm:text-sm font-medium px-3 sm:px-4 py-1.5 sm:py-2 bg-white/10 backdrop-blur-md rounded-full border border-white/20 inline-block">
+                <div className="absolute inset-x-0 bottom-0 p-3 translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition duration-500">
+                  <span className="text-white text-xs font-medium px-3 py-1.5 bg-white/10 backdrop-blur-md rounded-full border border-white/20 inline-block">
                     {img.label}
                   </span>
                 </div>
-
-                <div className="absolute inset-0 rounded-xl sm:rounded-2xl ring-1 ring-inset ring-white/10 group-hover:ring-white/30 transition-all duration-500" />
               </div>
             ))}
           </div>
@@ -185,15 +161,15 @@ export default function Gallery() {
 
       {activeImg && (
         <div
-          className="fixed inset-0 bg-black/95 backdrop-blur-md flex items-center justify-center z-[100] p-4 animate-blur-in"
+          className="fixed inset-0 bg-black/90 flex items-center justify-center z-50 p-4"
           onClick={closeLightbox}
         >
           <button
-            className="absolute top-4 right-4 md:top-8 md:right-8 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white text-2xl transition-all duration-300 hover:scale-110"
+            className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white text-xl transition-all duration-300"
             onClick={closeLightbox}
           >
             <svg
-              className="w-6 h-6"
+              className="w-5 h-5"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -208,14 +184,14 @@ export default function Gallery() {
           </button>
 
           <button
-            className="absolute left-4 top-1/2 -translate-y-1/2 hidden md:flex w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 items-center justify-center text-white transition-all duration-300 hover:scale-110"
+            className="absolute left-4 top-1/2 -translate-y-1/2 hidden md:flex w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 items-center justify-center text-white transition-all duration-300"
             onClick={(e) => {
               e.stopPropagation();
               navigateImage("prev");
             }}
           >
             <svg
-              className="w-6 h-6"
+              className="w-5 h-5"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -230,14 +206,14 @@ export default function Gallery() {
           </button>
 
           <button
-            className="absolute right-4 top-1/2 -translate-y-1/2 hidden md:flex w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 items-center justify-center text-white transition-all duration-300 hover:scale-110"
+            className="absolute right-4 top-1/2 -translate-y-1/2 hidden md:flex w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 items-center justify-center text-white transition-all duration-300"
             onClick={(e) => {
               e.stopPropagation();
               navigateImage("next");
             }}
           >
             <svg
-              className="w-6 h-6"
+              className="w-5 h-5"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -254,13 +230,12 @@ export default function Gallery() {
           <img
             src={activeImg}
             alt="Gallery"
-            className="max-w-[90vw] max-h-[85vh] rounded-2xl object-contain animate-scale-in"
+            className="max-w-[90%] max-h-[90%] rounded-xl transition-all duration-300"
             onClick={(e) => e.stopPropagation()}
           />
 
           <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-2 text-white/60 text-sm">
-            <span className="w-2 h-2 bg-[#B91C1C] rounded-full animate-pulse" />
-            Press ESC or click outside to close
+            Click outside or press ESC to close
           </div>
         </div>
       )}

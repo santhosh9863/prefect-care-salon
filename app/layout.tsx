@@ -23,12 +23,14 @@ export const metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning className="bg-[#FFF0F5]">
       <head>
         <script dangerouslySetInnerHTML={{ __html: `window.scrollTo(0,0);` }} />
       </head>
-      <body className={`${playfair.variable} ${poppins.variable} font-[var(--font-poppins)] antialiased w-full min-h-screen`}>
-        {children}
+      <body className={`${playfair.variable} ${poppins.variable} font-[var(--font-poppins)] antialiased w-full min-h-screen bg-[#FFF0F5] text-[#2a2a2a]`}>
+        <div className="min-h-screen bg-[#FFF0F5]">
+          {children}
+        </div>
       </body>
     </html>
   );

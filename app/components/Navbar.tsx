@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
-import Button from "@/app/ui/Button";
+import { motion, AnimatePresence } from "framer-motion";
 
 const navLinks = [
   { label: "Home", href: "/" },
@@ -22,11 +22,12 @@ function WhatsAppButton() {
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
+useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
-      if (!target.closest('.mobile-menu') && !target.closest('.menu-toggle')) {
+      if (menuRef.current && !menuRef.current.contains(target as Node)) {
         setIsOpen(false);
       }
     };
@@ -36,62 +37,63 @@ export default function Navbar() {
 
   return (
     <>
-      <header className="relative top-0 left-0 w-full z-50 bg-white shadow-sm">
-        <nav className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+      <header className="fixed top-0 left-0 w-full z-50 bg-white/70 backdrop-blur-md border-b border-[#7F1635]/10">
+        <nav className="max-w-6xl mx-auto px-4 py-2 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-3">
-            <span className="w-9 h-9 rounded-full flex items-center justify-center text-white text-xs font-bold bg-gradient-to-br from-[#B91C1C] to-[#991B1B] shadow-md">PC</span>
-            <span className="font-[var(--font-poppins)] font-[600] uppercase tracking-[0.12em] text-[#C8102E] text-sm">PERFECT CARE</span>
+            <span className="w-8 h-8 rounded-full flex items-center justify-center text-white text-xs font-bold bg-[#7F1635]">PC</span>
+            <span className="text-[#7F1635] font-semibold text-sm tracking-wide">PERFECT CARE</span>
           </Link>
 
           <ul className="hidden lg:flex items-center gap-6">
             {navLinks.map((link) => (
               <li key={link.label}>
-                <Link href={link.href} className="text-sm font-medium text-gray-700 hover:text-black transition-all duration-200 ease-out cursor-pointer ripple">{link.label}</Link>
+                <Link href={link.href} className="text-gray-600 hover:text-[#7F1635] transition-colors text-sm font-medium">{link.label}</Link>
               </li>
             ))}
           </ul>
 
           <div className="hidden lg:flex items-center gap-3">
-            <Button href="/book" variant="primary" size="sm">Book Now</Button>
+            <Link href="/book" className="px-4 py-1.5 rounded-full bg-[#7F1635] text-white text-sm font-medium hover:scale-105 transition">
+              Book Now
+            </Link>
           </div>
 
-          <button onClick={() => setIsOpen(prev => !prev)} className="menu-toggle lg:hidden relative z-50 p-2 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer ripple" aria-label="Menu">
-            <svg className="w-6 h-6 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <button onClick={() => setIsOpen(prev => !prev)} className="menu-toggle lg:hidden relative z-50 p-2" aria-label="Menu">
+            <svg className="w-6 h-6 text-[#7F1635]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               {isOpen ? <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /> : <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />}
             </svg>
           </button>
         </nav>
       </header>
 
-      <div
-        className={`mobile-menu absolute right-4 top-16 w-64 bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl border border-gray-200/50 z-50 transition-all duration-300 ease-out ${isOpen ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 -translate-y-2 scale-95 pointer-events-none'
-          }`}
-      >
-        <div className="flex flex-col p-5 gap-1">
-          {navLinks.map((link, i) => (
-            <Link
-              key={link.label}
-              href={link.href}
-              onClick={(e) => {
-                const rect = e.currentTarget.getBoundingClientRect();
-                const x = ((e.clientX - rect.left) / rect.width) * 100;
-                const y = ((e.clientY - rect.top) / rect.height) * 100;
-                e.currentTarget.style.setProperty("--rx", `${x}%`);
-                e.currentTarget.style.setProperty("--ry", `${y}%`);
-                setIsOpen(false);
-              }}
-              className={`text-gray-700 hover:text-black hover:translate-x-1 transition-all duration-200 ease-out cursor-pointer px-4 py-3 rounded-xl hover:bg-gray-50/80 active:scale-90 active:shadow-inner ripple ${isOpen ? 'animate-fade-in-up' : ''}`}
-              style={{ animationDelay: `${i * 0.08}s` }}
+      <div ref={menuRef} className="relative">
+        <AnimatePresence>
+          {isOpen && (
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.2 }}
+              className="absolute top-full right-4 mt-2 w-48 rounded-xl bg-white shadow-lg border border-[#7F1635]/10 p-4"
             >
-              {link.label}
-            </Link>
-          ))}
-          <div className="pt-3 border-t border-gray-100 mt-3">
-            <Button href="/book" variant="primary" size="md" onClick={() => setIsOpen(false)} fullWidth className="shadow-md hover:shadow-lg active:scale-90 active:shadow-inner transition-all duration-200">
-              Book Appointment
-            </Button>
-          </div>
-        </div>
+              <div className="flex flex-col gap-3">
+                {navLinks.map((link) => (
+                  <Link
+                    key={link.label}
+                    href={link.href}
+                    onClick={() => setIsOpen(false)}
+                    className="text-gray-700 text-sm hover:text-[#7F1635] transition-colors"
+                  >
+                    {link.label}
+                  </Link>
+                ))}
+                <Link href="/book" onClick={() => setIsOpen(false)} className="mt-2 pt-3 border-t border-gray-100 text-center px-4 py-2 rounded-full bg-[#7F1635] text-white text-sm font-medium">
+                  Book Appointment
+                </Link>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
       <WhatsAppButton />
     </>

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { ReactNode, MouseEvent } from "react";
 
-type ButtonVariant = "primary" | "outline" | "ghost";
+type ButtonVariant = "primary" | "secondary" | "outline" | "ghost";
 type ButtonSize = "sm" | "md" | "lg";
 
 interface ButtonProps {
@@ -23,7 +23,9 @@ const baseStyles =
 
 const variantStyles: Record<ButtonVariant, string> = {
   primary:
-    "bg-[#B91C1C] text-white hover:bg-[#991B1B] hover:brightness-110 hover:shadow-xl hover:shadow-red-900/30 hover:scale-105",
+    "bg-[#7F1635] text-white font-medium rounded-full px-8 py-4 shadow-md hover:scale-105 transition-all duration-300",
+  secondary:
+    "border border-white/40 bg-white/10 backdrop-blur-sm text-white rounded-full hover:bg-white/20 transition-all duration-300",
   outline:
     "border-2 border-[#B91C1C] text-[#B91C1C] bg-transparent hover:bg-[#B91C1C]/5 hover:brightness-110 hover:scale-105",
   ghost:
@@ -33,7 +35,7 @@ const variantStyles: Record<ButtonVariant, string> = {
 const sizeStyles: Record<ButtonSize, string> = {
   sm: "px-4 py-1.5 text-xs",
   md: "px-6 py-3 text-sm",
-  lg: "px-10 py-4 text-base",
+  lg: "px-8 py-4 text-base",
 };
 
 export default function Button({
